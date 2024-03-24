@@ -1,8 +1,16 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Header from './shared/Header'
+import Home from "./common/Home"
 
 export default function App() {
   return (
-    <h1 className="text-3xl underline font-bold">
-      Testy boi
-    </h1>
+    <>
+      <Header/>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+        </Routes>
+      </Router>
+    </>
   )
 }
