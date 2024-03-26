@@ -1,0 +1,3 @@
+interface SideOptProps{
+    option: string
+}
