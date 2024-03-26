@@ -7,3 +7,11 @@
 .usedbquotes{
     font-family: DoubleQuotes;
 }
+
+.useinter{
+    font-family: Inter;
+}
+
+:root{
+    color-scheme: dark;
+}
