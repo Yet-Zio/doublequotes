@@ -5,7 +5,7 @@ export default function Navbar() {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
-    <nav className="flex w-full items-center ps-3 bg-[#1f211d]">
+    <nav className="flex w-full items-center ps-3 bg-[#0c0d0c]">
       <div className="flex items-center">
         <Quotes size={40} className='text-[#A9A74F] hover:cursor-pointer' weight='bold' onClick={() => {window.location.href = "/"}}/>
         <span className='text-2xl text-white usedbquotes ms-2 hover:cursor-pointer select-none hidden md:flex' onClick={() => {window.location.href = "/"}}>Double<span className='text-[#A9A74F]'>Quotes</span></span>
@@ -18,7 +18,7 @@ export default function Navbar() {
       </div>
       <div className="flex">
         <button className='flex justify-center items-center h-10 pt-5 pb-5 ps-3 pe-3 bg-[#A9A74F] rounded-full useinter text-sm hover:bg-[#A9A74F]/75'>Log&nbsp;In</button>
-        <button className='font-bold ms-2 flex justify-center items-center h-10 w-10 bg-[#1f211d] rounded-full useinter text-sm hover:bg-[#3c3e39]'><DotsThree size={28}/></button>
+        <button className='font-bold ms-2 flex justify-center items-center h-10 w-10 bg-[#0c0d0c] rounded-full useinter text-sm hover:bg-[#3c3e39]'><DotsThree size={28}/></button>
       </div>
     </nav>
   )

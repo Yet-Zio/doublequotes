@@ -19,7 +19,7 @@ export default function DoubleQuotes() {
   }
 
   return (
-    <div className='flex min-h-screen min-w-screen'>
+    <div className='flex min-h-screen min-w-screen bg-[#0c0d0c]'>
       <Sidebar/>
       {renderPage()}
     </div>

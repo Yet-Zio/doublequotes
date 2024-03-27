@@ -19,7 +19,7 @@ export default function SideOption({option}: SideOptProps) {
   }
 
   return (
-    <div className={`flex w-full h-10 ${selectedOption === option ? "bg-[#3c3e39]": "bg-transparent"} items-center hover:bg-[#3c3e39] rounded-xl ps-3 cursor-pointer mb-3`}
+    <div className={`flex w-full h-10 ${selectedOption === option ? "bg-[#1f211d]": "bg-transparent"} items-center hover:bg-[#1f211d] rounded-xl ps-3 cursor-pointer mb-3`}
       onClick={() => {dispatch(change(option))}}>
         {SideIcon()}
         <span className="ms-3 text-base text-white useinter">{option}</span>
