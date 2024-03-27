@@ -1,5 +1,5 @@
 import { Quotes, MagnifyingGlass, DotsThree} from '@phosphor-icons/react'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
 export default function Navbar() {
   const inputRef = useRef<HTMLInputElement | null>(null);

@@ -1,7 +1,11 @@
 import { House, TrendUp } from "@phosphor-icons/react";
-import React from "react";
+import { useDQSelector, useDQDispatch } from "../../redux/hooks";
+import { change } from "../../redux/sidebar/SideOptSlice";
 
 export default function SideOption({option}: SideOptProps) {
+
+  const selectedOption = useDQSelector(state => state.sideopt.option)
+  const dispatch = useDQDispatch()
 
   const SideIcon = () => {
     switch (option) {
@@ -15,7 +19,8 @@ export default function SideOption({option}: SideOptProps) {
   }
 
   return (
-    <div className="flex w-full h-10 bg-transparent items-center hover:bg-[#3c3e39] rounded-xl ps-3 cursor-pointer">
+    <div className={`flex w-full h-10 ${selectedOption === option ? "bg-[#3c3e39]": "bg-transparent"} items-center hover:bg-[#3c3e39] rounded-xl ps-3 cursor-pointer mb-3`}
+      onClick={() => {dispatch(change(option))}}>
         {SideIcon()}
         <span className="ms-3 text-base text-white useinter">{option}</span>
     </div>
