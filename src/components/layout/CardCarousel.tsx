@@ -42,15 +42,15 @@ export default function CardCarousel({ children }: CardCarouselProps) {
           </motion.div>
           ))}
           {indexes.startIndex !== 0 ? (
-            <div className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 rounded-full h-[32px] w-[32px] bg-black/75 justify-center items-center cursor-pointer hover:bg-black">
-              <CaretLeft size={20} color="#fff" onClick={handlePrevClick} />
+            <div className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 rounded-full h-[32px] w-[32px] bg-black/75 justify-center items-center cursor-pointer hover:bg-black" onClick={handlePrevClick}>
+              <CaretLeft size={20} color="#fff"/>
             </div>
           ) : (
             ""
           )}
           {indexes.endIndex !== children.length ? (
-            <div className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 rounded-full h-[32px] w-[32px] bg-black/75 justify-center items-center cursor-pointer hover:bg-black">
-              <CaretRight size={20} color="#fff" onClick={handleNextClick}/>
+            <div className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 rounded-full h-[32px] w-[32px] bg-black/75 justify-center items-center cursor-pointer hover:bg-black" onClick={handleNextClick}>
+              <CaretRight size={20} color="#fff"/>
             </div>
           ) : (
             ""
