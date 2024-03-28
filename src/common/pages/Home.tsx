@@ -1,10 +1,8 @@
 export default function Home() {
   return (
     <>
-      <div className="popularposts">
-      Home
-      </div>
-      <div className="latestposts">
+      <div className="homeposts">
+        Home
         {/* include filtering */}
       </div>
     </>

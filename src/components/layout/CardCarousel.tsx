@@ -1,0 +1,56 @@
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { useState } from "react";
+
+export default function CardCarousel({ children }: CardCarouselProps) {
+  const [indexes, setIndexes] = useState({ startIndex: 0, endIndex: 4 });
+
+  const handleNextClick = () => {
+    setIndexes((prevIndexes) => ({
+      startIndex: prevIndexes.startIndex + 2,
+      endIndex: prevIndexes.endIndex + 2
+    }));
+  };
+
+  const handlePrevClick = () => {
+    setIndexes((prevIndexes) => ({
+      startIndex: prevIndexes.startIndex - 2,
+      endIndex: prevIndexes.endIndex - 2
+    }));
+  };
+
+  return (
+    <>
+      <div className="relative hidden md:flex w-[1015px] h-52 mt-3 space-x-3 overflow-x-hidden">
+      {children.slice(indexes.startIndex, indexes.endIndex).map((child, index) => (
+        <div
+          key={index}
+          className={
+            index === 0 && indexes.endIndex === children.length
+              ? "w-auto overflow-hidden"
+              : ""
+          }
+        >
+          {child}
+        </div>
+      ))}
+      {indexes.startIndex !== 0 ? (
+        <div className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 rounded-full h-[32px] w-[32px] bg-black/75 justify-center items-center">
+          <CaretLeft size={20} color="#fff" onClick={handlePrevClick} />
+        </div>
+      ) : (
+        ""
+      )}
+      {indexes.endIndex !== children.length ? (
+        <div className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 rounded-full h-[32px] w-[32px] bg-black/75 justify-center items-center">
+          <CaretRight size={20} color="#fff" onClick={handleNextClick} />
+        </div>
+      ) : (
+        ""
+      )}
+    </div>
+    <div className="relative hide-ver-scroll flex md:hidden w-[1015px] h-52 mt-3 space-x-3 overflow-x-auto">
+      {children}
+    </div>
+    </>
+  );
+}

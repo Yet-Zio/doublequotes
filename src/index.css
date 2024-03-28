@@ -19,3 +19,16 @@
 .simplebar-scrollbar::before {
     background-color: #3c3e39;
 }
+
+.hide-ver-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.hide-ver-scroll::-webkit-scrollbar-track {
+    background: #0c0d0c;
+}
+
+.hide-ver-scroll::-webkit-scrollbar-thumb {
+    background: #3c3e39;
+    border-radius: 4px;
+}
