@@ -4,7 +4,7 @@ import CardCarousel from "../../components/layout/CardCarousel";
 
 export default function Trending() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center">
       <CardCarousel>
         <PopularCard title="Bridge collapses aftermath" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
           topquotepage="news" imgsrc="https://www.shutterstock.com/image-photo/famous-golden-gate-bridge-san-600nw-136918865.jpg"/>
