@@ -19,6 +19,7 @@ export default function PopularCommunities() {
     <div className={`hidden fixed ms-[620px] ${currentScrollY >= 197 ? "top-20" : ""} xl:flex xl:flex-col w-[316px] ${showOtherComms ? "h-[630px]" : "h-[430px]"} bg-[#050505] rounded-xl p-5`}>
       <SimpleBar forceVisible="y" autoHide={true} style={{height: "600px"}}>
         <span className="text-xs text-slate-400 useinter mb-5">POPULAR COMMUNITIES</span>
+        {/* Remember to make them links later */}
         <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
           <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
           <div className="flex flex-col ms-2 useinter">

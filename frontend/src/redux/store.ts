@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import sideoptReducer from "./sidebar/SideOptSlice";
+import sortoptReducer from "./sortoptions/SortOptSlice";
 
 const store = configureStore({
     reducer: {
-        sideopt: sideoptReducer
+        sideopt: sideoptReducer,
+        sortopt: sortoptReducer
     }
 })
 

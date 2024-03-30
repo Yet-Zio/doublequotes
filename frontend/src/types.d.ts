@@ -9,9 +9,26 @@ interface PopularCardProps{
     description: string
     topquotepage: string
     imgsrc: string
+    link: string
 }
 
 interface CardCarouselProps{
     children: React.ReactNode[]
+}
+
+type PopularSortType = 'Hot' | 'Best' | 'New' | 'Top' | 'Rising'
+type PopularSortLocation = 'Everywhere' | 'Your Country'
+type PostCardType = 'Card' | 'Compact'
+
+interface PopularSort{
+    type: PopularSortType
+    location: PopularSortLocation
+    view: PostCardType
+}
+
+type SortSelectType = "type" | "location" | "view"
+
+interface SortSelectProps{
+    type: string
 }
   
