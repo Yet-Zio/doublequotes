@@ -8,7 +8,9 @@ export default function App() {
       <Header/>
       <Router>
         <Routes>
-          <Route path="/" element={<DoubleQuotes/>}/>
+          <Route path="/" element={<DoubleQuotes pagetorender="Trending"/>}/>
+          <Route path="/~/trending" element={<DoubleQuotes pagetorender="Trending"/>}/>
+          <Route path="/~/home" element={<DoubleQuotes pagetorender="Home"/>}/>
         </Routes>
       </Router>
     </div>

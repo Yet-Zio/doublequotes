@@ -31,4 +31,7 @@ type SortSelectType = "type" | "location" | "view"
 interface SortSelectProps{
     type: string
 }
-  
+
+interface PageToRenderProps{
+    pagetorender: SideOptions
+}

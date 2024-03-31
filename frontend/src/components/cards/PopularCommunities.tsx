@@ -21,35 +21,35 @@ export default function PopularCommunities() {
         <span className="text-xs text-slate-400 useinter mb-5">POPULAR COMMUNITIES</span>
         {/* Remember to make them links later */}
         <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-          <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+          <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
           <div className="flex flex-col ms-2 useinter">
             <span className="text-sm text-[#A9A74F]">“explainlikeimfive”</span>
             <span className="text-xs text-slate-400">22,779,796 members</span>
           </div>
         </div>
         <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-          <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+          <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
           <div className="flex flex-col ms-2 useinter">
             <span className="text-sm text-[#A9A74F]">“PS4”</span>
             <span className="text-xs text-slate-400">5,583,393 members</span>
           </div>
         </div>
         <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-          <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+          <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
           <div className="flex flex-col ms-2 useinter">
             <span className="text-sm text-[#A9A74F]">“apple”</span>
             <span className="text-xs text-slate-400">4,834,130 members</span>
           </div>
         </div>
         <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-          <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+          <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
           <div className="flex flex-col ms-2 useinter">
             <span className="text-sm text-[#A9A74F]">“NBA2K”</span>
             <span className="text-xs text-slate-400">539,351 members</span>
           </div>
         </div>
         <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-          <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+          <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
           <div className="flex flex-col ms-2 useinter">
             <span className="text-sm text-[#A9A74F]">“xboxone”</span>
             <span className="text-xs text-slate-400">4,004,734 members</span>
@@ -58,98 +58,98 @@ export default function PopularCommunities() {
         {showOtherComms && (
           <>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
             </div>
           </div>
           <div className="flex mt-3 cursor-pointer hover:bg-[#1f211d] p-2 rounded-xl">
-            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('./dbquotes.svg')`}}></div>
+            <div className="flex w-[30px] h-[30px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
             <div className="flex flex-col ms-2 useinter">
               <span className="text-sm text-[#A9A74F]">“xboxone”</span>
               <span className="text-xs text-slate-400">4,004,734 members</span>
