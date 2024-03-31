@@ -41,3 +41,16 @@ interface PostLayoutProps{
     view?: PostCardType
     children: React.ReactNode[]
 }
+
+interface PostDetails{
+    uname: string
+    communityname: string
+    score: number
+    commentcount: number
+    link: string
+}
+
+interface PostCardProps{
+    forhome?: boolean
+    postdetails: PostDetails
+}

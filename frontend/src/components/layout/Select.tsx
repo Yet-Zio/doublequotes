@@ -128,8 +128,8 @@ export default function Select({type}: SortSelectProps) {
                         animate="visible"
                         exit="hidden">
                         <span className="text-sm font-bold p-2 pt-3">View</span>
-                        <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${viewoptions[0] === currentView ? "bg-[#444e37]" : ""}`} onClick={() => {dispatch(changeview(viewoptions[0])); setIsViewExpand(!isViewExpand)}}><span className="text-sm flex"><Rows size={20} className="me-2"/>{viewoptions[0]}</span></div>
-                        <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${viewoptions[1] === currentView ? "bg-[#444e37]" : ""}`} onClick={() => {dispatch(changeview(viewoptions[1])); setIsViewExpand(!isViewExpand)}}><span className="text-sm flex"><List size={20} className="me-2"/>{viewoptions[1]}</span></div>
+                        <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${viewoptions[0] === currentView ? "bg-[#444e37]" : ""}`} onClick={() => {dispatch(changeview(viewoptions[0])); setIsViewExpand(!isViewExpand)}}><span className="text-sm flex"><Rows size={20} weight="fill" className="me-2"/>{viewoptions[0]}</span></div>
+                        <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${viewoptions[1] === currentView ? "bg-[#444e37]" : ""}`} onClick={() => {dispatch(changeview(viewoptions[1])); setIsViewExpand(!isViewExpand)}}><span className="text-sm flex"><List size={20} weight="fill" className="me-2"/>{viewoptions[1]}</span></div>
                     </motion.div>
                 )}
             </AnimatePresence>
