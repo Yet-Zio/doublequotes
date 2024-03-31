@@ -35,3 +35,9 @@ interface SortSelectProps{
 interface PageToRenderProps{
     pagetorender: SideOptions
 }
+
+interface PostLayoutProps{
+    forhome?: boolean
+    view?: PostCardType
+    children: React.ReactNode[]
+}

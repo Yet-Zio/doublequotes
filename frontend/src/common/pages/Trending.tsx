@@ -5,23 +5,23 @@ import PopularSort from "../../components/oth/PopularSort";
 
 export default function Trending() {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center w-fit">
       <CardCarousel>
-        <PopularCard link="/~memes" title="Bridge collapses aftermath" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
+        <PopularCard link="/search/memes" title="Bridge collapses aftermath" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
           topquotepage="news" imgsrc="https://www.shutterstock.com/image-photo/famous-golden-gate-bridge-san-600nw-136918865.jpg"/>
-        <PopularCard link="/~memes" title="Bridge collapses aftermath" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
+        <PopularCard link="/search/memes" title="Bridge collapses aftermath" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
           topquotepage="news" imgsrc="https://assets.architecturaldigest.in/photos/63d141a75b7341ea2f9ece34/16:9/w_1280,c_limit/The%2027%20most%20beautiful%20bridges%20in%20the%20world.jpg"/>
-        <PopularCard link="/~memes" title="Bridge collapses aftermath" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
+        <PopularCard link="/search/memes" title="Bridge collapses aftermath" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
           topquotepage="news" imgsrc="https://cdn.britannica.com/87/887-050-04408E86/George-Washington-Bridge-New-Jersey-York-City.jpg"/>
-        <PopularCard link="/~memes" title="Bridge collapses aftermath" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
+        <PopularCard link="/search/memes" title="Bridge collapses aftermath" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
           topquotepage="news" imgsrc="https://www.hindustantimes.com/ht-img/img/2023/10/01/550x309/ecefafee-1b16-11ed-8885-4d72d9180d60_1660430222634_1696156812492.jpg"/>
-        <PopularCard link="/~memes" title="Sugarcane stock high" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
+        <PopularCard link="/search/memes" title="Sugarcane stock high" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
           topquotepage="news" imgsrc="https://cdn.britannica.com/67/125067-050-F318A0E6/Sugarcane.jpg"/>
-        <PopularCard link="/~memes" title="Sugarcane stock high" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
+        <PopularCard link="/search/memes" title="Sugarcane stock high" description="At least 6 still unaccounted for after cargo ship hits Baltimore bridge"
           topquotepage="news" imgsrc="https://cdn.britannica.com/67/125067-050-F318A0E6/Sugarcane.jpg"/>
       </CardCarousel>
       <PopularSort/>
-      <div className="flex flex-col md:w-[699px] self-start ps-10 mb-7 pe-14">
+      <div className="flex flex-col md:w-[699px] self-start ps-2 md:ps-10 mb-7 md:pe-14">
         <div className="flex w-[360px] md:w-[600px]">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam excepturi iste molestiae eligendi, officia repudiandae porro voluptatibus quo accusamus, nulla esse id ullam vitae rerum reprehenderit ducimus, obcaecati culpa temporibus.
           Neque laborum fugit totam dicta cupiditate recusandae voluptatibus, veniam ea ratione molestias earum quae placeat officiis sed repellat voluptatem possimus porro quasi nam nobis enim magni. Cum rerum rem debitis?
