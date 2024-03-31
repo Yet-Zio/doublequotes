@@ -16,7 +16,7 @@ export default function PopularCommunities() {
     }
   }, [window.scrollY]);
   return (
-    <div className={`hidden fixed ms-[620px] ${currentScrollY >= 197 ? "top-20" : ""} xl:flex xl:flex-col w-[316px] ${showOtherComms ? "h-[630px]" : "h-[430px]"} bg-[#050505] rounded-xl p-5`}>
+    <div className={`hidden fixed ms-[640px] ${currentScrollY >= 197 ? "top-20" : ""} xl:flex xl:flex-col w-[316px] ${showOtherComms ? "h-[630px]" : "h-[430px]"} bg-[#050505] rounded-xl p-5`}>
       <SimpleBar forceVisible="y" autoHide={true} style={{height: "600px"}}>
         <span className="text-xs text-slate-400 useinter mb-5">POPULAR COMMUNITIES</span>
         {/* Remember to make them links later */}

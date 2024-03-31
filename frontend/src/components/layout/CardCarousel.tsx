@@ -24,7 +24,7 @@ export default function CardCarousel({ children }: CardCarouselProps) {
 
   return (
     <>
-      <div className="relative hidden xl:flex xl:w-[960px] h-52 mt-3 space-x-3 overflow-x-hidden">
+      <div className="relative hidden xl:flex xl:w-[960px] h-52 mt-3 space-x-3 overflow-x-hidden mb-2">
         <AnimatePresence>
           {children.slice(indexes.startIndex, indexes.endIndex).map((child, index) => (
           <motion.div
@@ -57,7 +57,7 @@ export default function CardCarousel({ children }: CardCarouselProps) {
         )}
       </AnimatePresence>
     </div>
-    <div className="relative hide-ver-scroll flex xl:hidden w-[360px] md:w-[600px] h-52 mt-3 space-x-3 overflow-x-auto">
+    <div className="relative hide-ver-scroll flex xl:hidden w-[360px] md:w-[600px] h-52 mt-3 space-x-3 overflow-x-auto mb-2">
       {children}
     </div>
     </>

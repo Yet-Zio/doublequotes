@@ -21,7 +21,7 @@ export default function Trending() {
           topquotepage="news" imgsrc="https://cdn.britannica.com/67/125067-050-F318A0E6/Sugarcane.jpg"/>
       </CardCarousel>
       <PopularSort/>
-      <div className="flex">
+      <div className="flex flex-col md:w-[699px] self-start ps-10 mb-7 pe-14">
         <div className="flex w-[360px] md:w-[600px]">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam excepturi iste molestiae eligendi, officia repudiandae porro voluptatibus quo accusamus, nulla esse id ullam vitae rerum reprehenderit ducimus, obcaecati culpa temporibus.
           Neque laborum fugit totam dicta cupiditate recusandae voluptatibus, veniam ea ratione molestias earum quae placeat officiis sed repellat voluptatem possimus porro quasi nam nobis enim magni. Cum rerum rem debitis?
