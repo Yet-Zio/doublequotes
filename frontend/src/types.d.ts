@@ -52,5 +52,6 @@ interface PostDetails{
 
 interface PostCardProps{
     forhome?: boolean
+    view: PostCardType
     postdetails: PostDetails
 }
