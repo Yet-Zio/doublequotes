@@ -7,7 +7,7 @@ export default function PostCard({forhome = false, postdetails} : PostCardProps)
       <div className="flex w-full justify-between">
         <div className="flex w-[1/4]">
           <div className="flex w-[24px] h-[24px] rounded-full bg-cover" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
-          <Link to={forhome ? `${STARTQUOTE + postdetails.communityname + ENDQUOTE} : ${postdetails.uname} `} className=""></Link>
+          <Link to={forhome ? `${STARTQUOTE + postdetails.communityname + ENDQUOTE}` : `${postdetails.uname}`} className=""></Link>
         </div>
       </div>
     </div>
