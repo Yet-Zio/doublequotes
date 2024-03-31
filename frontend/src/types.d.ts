@@ -48,6 +48,10 @@ interface PostDetails{
     score: number
     commentcount: number
     link: string
+    timestamp: string
+    thumbnail: string
+    title: string
+    description?: string
 }
 
 interface PostCardProps{
