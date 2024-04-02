@@ -37,8 +37,8 @@ export default function Trending() {
       <PopularSort/>
       <div className="flex flex-col md:w-[699px] self-start ps-2 md:ps-10 mb-7 md:pe-14">
         <PostLayout view="Card">
-          <PostCard view="Card" postdetails={tempdetails}/>
-          <PostCard view="Card" postdetails={tempdetails}/>
+          <PostCard postdetails={tempdetails}/>
+          <PostCard postdetails={tempdetails}/>
         </PostLayout>
         <PopularCommunities/>
       </div>

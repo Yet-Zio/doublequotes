@@ -5,6 +5,7 @@ import { ArrowFatDown, ArrowFatUp, ChatCenteredText, DotsThree, Export } from "@
 export default function PostCard({forhome = false, view = "Card", postdetails} : PostCardProps) {
   return (
     <div className="flex flex-col w-[360px] md:w-[600px] cursor-pointer hover:bg-[#1f211d] rounded-xl mb-5 p-2 useinter">
+      {view === "Card" ? "" : ""}
       <div className="flex w-full justify-between">
         <div className="flex w-[1/4] justify-center items-center">
           <div className="flex w-[24px] h-[24px] rounded-full bg-cover justify-center items-center me-1" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
