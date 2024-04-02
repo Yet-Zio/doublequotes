@@ -1,15 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ENDQUOTE, STARTQUOTE } from "../../constants";
 import { ArrowFatDown, ArrowFatUp, ChatCenteredText, DotsThree, Export } from "@phosphor-icons/react";
 
 export default function PostCard({forhome = false, view = "Card", postdetails} : PostCardProps) {
+  const navigate = useNavigate()
+
   return (
-    <div className="flex flex-col w-[360px] md:w-[600px] cursor-pointer hover:bg-[#1f211d] rounded-xl mb-5 p-2 useinter">
+    <Link className="flex flex-col w-[360px] md:w-[600px] cursor-pointer hover:bg-[#1f211d] rounded-xl mb-5 p-2 useinter" to={`~/${postdetails.communityname}/comments/${postdetails.postid}`}>
       {view === "Card" ? "" : ""}
       <div className="flex w-full justify-between">
         <div className="flex w-[1/4] justify-center items-center">
-          <div className="flex w-[24px] h-[24px] rounded-full bg-cover justify-center items-center me-1" style={{backgroundImage: `url('/dbquotes.svg')`}}></div>
-          <Link to={postdetails.link} className="text-[#A9A74F] text-xs">{forhome ? `${STARTQUOTE + postdetails.communityname + ENDQUOTE}` : `${postdetails.uname}`}</Link>
+          <div className="flex w-[24px] h-[24px] rounded-full bg-cover justify-center items-center me-1" style={{backgroundImage: `url('/dbquotes.svg')`}} onClick={() => {navigate((forhome ? "~/" + postdetails.communityname : "u/" + postdetails.uname))}}></div>
+          <Link to={forhome ? "~/" + postdetails.communityname : "u/" + postdetails.uname} className={`text-[#A9A74F] text-xs ${forhome && "font-bold"} hover:text-[#A9A74F]/75`}>{forhome ? `${STARTQUOTE + postdetails.communityname + ENDQUOTE}` : `${postdetails.uname}`}</Link>
           <span className="text-xs me-1 text-slate-500">&nbsp;•&nbsp;</span>
           <span className="text-xs text-slate-400">{postdetails.timestamp}</span>
         </div>
@@ -39,6 +41,6 @@ export default function PostCard({forhome = false, view = "Card", postdetails} :
           <span className="text-sm">Share</span>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }

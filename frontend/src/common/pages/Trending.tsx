@@ -10,7 +10,7 @@ const tempdetails: PostDetails = {
   communityname: "anoncomm",
   score: 320,
   commentcount: 41,
-  link: "/~/comments/",
+  postid: "a4eiow9e9203ekam023m43",
   timestamp: "52 min ago",
   thumbnail: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, architecto natus. Assumenda amet enim inventore aliquid facilis quis repellendus! Dolorem molestiae ipsam voluptatum beatae odio omnis quis quia accusamus quam?",
   title: "Dog attains Super Saiyan and Gear 5 at the same time.",
@@ -36,7 +36,7 @@ export default function Trending() {
       </CardCarousel>
       <PopularSort/>
       <div className="flex flex-col md:w-[699px] self-start ps-2 md:ps-10 mb-7 md:pe-14">
-        <PostLayout view="Card">
+        <PostLayout view="Card" forhome={true}>
           <PostCard postdetails={tempdetails}/>
           <PostCard postdetails={tempdetails}/>
         </PostLayout>

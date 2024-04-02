@@ -47,7 +47,7 @@ interface PostDetails{
     communityname: string
     score: number
     commentcount: number
-    link: string
+    postid: string
     timestamp: string
     thumbnail: string
     title: string
