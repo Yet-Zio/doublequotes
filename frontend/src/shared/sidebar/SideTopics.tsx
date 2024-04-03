@@ -1,5 +1,28 @@
 import { Baseball, CaretDown, CaretUp, Cat, ChartLineUp, GameController, MaskHappy, ShieldStar, TelevisionSimple,
-    Onigiri} from "@phosphor-icons/react";
+    Onigiri,
+    PaintBrush,
+    SteeringWheel,
+    PencilRuler,
+    UsersFour,
+    CoatHanger,
+    ForkKnife,
+    HourglassLow,
+    Truck,
+    Scales,
+    GraduationCap,
+    MedalMilitary,
+    FilmSlate,
+    Headphones,
+    MapPin,
+    ApplePodcastsLogo,
+    UsersThree,
+    Keyboard,
+    BookOpen,
+    FlowerLotus,
+    Flask,
+    Horse,
+    Cpu,
+    AirplaneTilt} from "@phosphor-icons/react";
 import { AnimatePresence, motion} from "framer-motion";
 import { useState } from "react";
 
@@ -258,6 +281,144 @@ export default function SideTopics() {
                             <div className="flex items-center">
                                 <Onigiri size={16} className="me-2"/>
                                 <span className="text-sm text-white">Anime</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <PaintBrush size={16} className="me-2"/>
+                                <span className="text-sm text-white">Art</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <SteeringWheel size={16} className="me-2"/>
+                                <span className="text-sm text-white">Cars and Motor Vehicles</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <PencilRuler size={16} className="me-2"/>
+                                <span className="text-sm text-white">Crafts and DIY</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <UsersFour size={16} className="me-2"/>
+                                <span className="text-sm text-white">Culture, Race and Ethnicity</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <CoatHanger size={16} className="me-2"/>
+                                <span className="text-sm text-white">Fashion</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <ForkKnife size={16} className="me-2"/>
+                                <span className="text-sm text-white">Food and Drink</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <HourglassLow size={16} className="me-2"/>
+                                <span className="text-sm text-white">History</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <Truck size={16} className="me-2"/>
+                                <span className="text-sm text-white">Hobbies</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <Scales size={16} className="me-2"/>
+                                <span className="text-sm text-white">Law</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <GraduationCap size={16} className="me-2"/>
+                                <span className="text-sm text-white">Learning and Education</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <MedalMilitary size={16} className="me-2"/>
+                                <span className="text-sm text-white">Military</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <FilmSlate size={16} className="me-2"/>
+                                <span className="text-sm text-white">Movies</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <Headphones size={16} className="me-2"/>
+                                <span className="text-sm text-white">Music</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <MapPin size={16} className="me-2"/>
+                                <span className="text-sm text-white">Place</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <ApplePodcastsLogo size={16} className="me-2"/>
+                                <span className="text-sm text-white">Podcasts and Streamers</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <UsersThree size={16} className="me-2"/>
+                                <span className="text-sm text-white">Politics</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <Keyboard size={16} className="me-2"/>
+                                <span className="text-sm text-white">Programming</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <BookOpen size={16} className="me-2"/>
+                                <span className="text-sm text-white">Reading, Writing and Literature</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <FlowerLotus size={16} className="me-2"/>
+                                <span className="text-sm text-white">Religion and Spirituality</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <Flask size={16} className="me-2"/>
+                                <span className="text-sm text-white">Science</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <Horse size={16} className="me-2"/>
+                                <span className="text-sm text-white">Tabletop Games</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <Cpu size={16} className="me-2"/>
+                                <span className="text-sm text-white">Technology</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <AirplaneTilt size={16} className="me-2"/>
+                                <span className="text-sm text-white">Travel</span>
                             </div>
                         </div>
                         </>
