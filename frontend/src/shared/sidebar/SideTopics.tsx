@@ -1,4 +1,5 @@
-import { Baseball, CaretDown, CaretUp, ChartLineUp, GameController, MaskHappy, ShieldStar, TelevisionSimple } from "@phosphor-icons/react";
+import { Baseball, CaretDown, CaretUp, Cat, ChartLineUp, GameController, MaskHappy, ShieldStar, TelevisionSimple,
+    Onigiri} from "@phosphor-icons/react";
 import { AnimatePresence, motion} from "framer-motion";
 import { useState } from "react";
 
@@ -12,6 +13,8 @@ export default function SideTopics() {
     const [cryptoExposed, setCryptoExposed] = useState(false)
     const [televisionExposed, setTelevisionExposed] = useState(false)
     const [memesExposed, setMemesExposed] = useState(false)
+
+    const [otherTopics, setOtherTopics] = useState(false)
 
     const topicVariants = {
         hidden: { 
@@ -243,10 +246,26 @@ export default function SideTopics() {
                             </div>
                         </motion.div>
                     )}
+                    {otherTopics && (
+                        <>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <Cat size={16} className="me-2"/>
+                                <span className="text-sm text-white">Animals and Pets</span>
+                            </div>
+                        </div>
+                        <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
+                            <div className="flex items-center">
+                                <Onigiri size={16} className="me-2"/>
+                                <span className="text-sm text-white">Anime</span>
+                            </div>
+                        </div>
+                        </>
+                    )}
+                    <button className="mt-2 pt-2 pb-2 ps-4 pe-4 bg-transparent hover:bg-[#1f211d] self-start rounded-full text-xs" onClick={() => {setOtherTopics(!otherTopics)}}>{otherTopics ? "See less" : "See more"}</button>
                 </motion.div>
             )}
         </AnimatePresence>
-        
     </div>
   )
 }
