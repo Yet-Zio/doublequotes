@@ -24,6 +24,10 @@ const userSchema = new Schema({
         unique: true,
         default: ""
     },
+    quotechips:{
+        type: Number,
+        default: 0
+    },
     avatar: {
         type: String,
         default: "https://github.com/identicons/example.png"

@@ -1,6 +1,7 @@
 import SideOption from './SideOption'
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
+import SideTopics from './SideTopics';
 
 export default function Sidebar() {
   return (
@@ -14,6 +15,10 @@ export default function Sidebar() {
         <div className="flex flex-col me-5 mb-5">
           <SideOption option="Home"/>
           <SideOption option="Trending"/>
+        </div>
+        <SideTopics/>
+        <div className="flex w-full justify-between items-center rounded-xl p-5 mb-1">
+          <span className='text-transparent'>end div</span>
         </div>
       </SimpleBar>
     </div>

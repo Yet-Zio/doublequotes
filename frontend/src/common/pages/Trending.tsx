@@ -13,7 +13,7 @@ const tempdetails: PostDetails = {
   postid: "a4eiow9e9203ekam023m43",
   timestamp: "52 min ago",
   thumbnail: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, architecto natus. Assumenda amet enim inventore aliquid facilis quis repellendus! Dolorem molestiae ipsam voluptatum beatae odio omnis quis quia accusamus quam?",
-  title: "Dog attains Super Saiyan and Gear 5 at the same time.",
+  title: "Dog attains Super Saiyan and Gear 5 at the same time, then develops multiple personality disorder.",
   description: "Sussy description"
 }
 
