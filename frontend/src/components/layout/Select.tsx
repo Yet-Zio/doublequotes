@@ -65,7 +65,7 @@ export default function Select({type}: SortSelectProps) {
       document.removeEventListener("mousedown", handleClickOutside)
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [expandTypeRef, expandLocRef])
+  }, [expandTypeRef, expandLocRef, expandViewRef])
 
   
 

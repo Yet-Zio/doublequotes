@@ -1,9 +1,51 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ENDQUOTE, STARTQUOTE } from "../../constants";
-import { ArrowFatDown, ArrowFatUp, ChatCenteredText, DotsThree, Export } from "@phosphor-icons/react";
+import { ArrowFatDown, ArrowFatUp, ChatCenteredText, DotsThree, Export, Flag } from "@phosphor-icons/react";
+import { AnimatePresence, motion} from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export default function PostCard({forhome = false, view = "Card", postdetails} : PostCardProps) {
   const navigate = useNavigate()
+
+  const [postMenu, setPostMenu] = useState(false)
+
+  const expandVariants = {
+    hidden: { 
+        y: -10,
+        opacity: 0, 
+        transition: {
+            duration: 0.2,
+        }
+    },
+    visible: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            duration: 0.2,
+        }
+    },
+  }
+
+  const postMenuRef = useRef<HTMLButtonElement | null>(null)
+
+  useEffect(() => {
+    function handleClickOutside(event: { target: any; }) {
+      if (postMenuRef.current && !postMenuRef.current.contains(event.target)){
+        setPostMenu(false)
+      }
+    }
+
+    const handleScroll = () => {
+        setPostMenu(false)
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [postMenuRef])
 
   return (
     <div className="flex flex-col w-[360px] md:w-[600px] cursor-pointer hover:bg-[#1f211d] rounded-xl mb-3 p-2 useinter">
@@ -16,9 +58,23 @@ export default function PostCard({forhome = false, view = "Card", postdetails} :
               <span className="text-xs me-1 text-slate-500">&nbsp;•&nbsp;</span>
               <span className="text-xs text-slate-400">{postdetails.timestamp}</span>
             </div>
-            <div className="flex w-[1/4] justify-center items-center mb-2">
+            <div className="flex w-[1/4] relative justify-center items-center mb-2">
               <button className="ps-4 pe-4 bg-[#A9A74F] hover:bg-[#A9A74F]/75 rounded-full text-xs h-8 justify-center items-center">Join</button>
-              <button className='font-bold ms-2 flex justify-center items-center h-10 w-10 bg-transparent rounded-full useinter text-sm hover:bg-[#30312f]'><DotsThree size={16}/></button>
+              <button ref={postMenuRef} className='font-bold ms-2 flex justify-center items-center h-10 w-10 bg-transparent rounded-full useinter text-sm hover:bg-[#30312f]' onClick={() => {setPostMenu(!postMenu)}}><DotsThree size={16}/></button>
+              <AnimatePresence>
+                {postMenu && (
+                  <motion.div className="flex mt-20 absolute bg-[#1a1e15] flex-col w-[115px] h-[40px] space-y-1 rounded-lg"
+                    variants={expandVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden">
+                      <div className="flex w-full h-full justify-evenly items-center hover:bg-[#2a3022] rounded-lg">
+                        <Flag size={20}/>
+                        <span className="text-sm">Report</span>
+                      </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
           <Link to={"~/" + postdetails.communityname + "/comments/" + postdetails.postid} className="flex flex-col w-full h-[452px]">
