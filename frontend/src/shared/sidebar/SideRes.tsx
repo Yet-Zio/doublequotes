@@ -1,4 +1,4 @@
-import { CaretUp, Handshake, HourglassSimpleHigh, Question, Quotes, Scales, Scroll } from "@phosphor-icons/react";
+import { CaretUp, Coins, HourglassMedium, Question, Quotes } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
@@ -46,46 +46,27 @@ export default function SideRes() {
                 exit="exit">
                 <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
                     <div className="flex items-center">
-                        <Quotes size={20} className="me-2" weight="bold"/>
-                        <span className="text-sm text-white">About DoubleQuotes</span>
-                    </div>
-                </div>
-                <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
-                    <div className="flex items-center">
                         <Question size={20} className="me-2"/>
                         <span className="text-sm text-white">Help</span>
                     </div>
                 </div>
-                <hr className="border-0 h-[1px] bg-[#222320] my-2" />
                 <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
                     <div className="flex items-center">
-                        <Quotes size={20} className="me-2" weight="fill"/>
-                        <span className="text-sm text-white">Communities</span>
-                    </div>
-                </div>
-                <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
-                    <div className="flex items-center">
-                        <HourglassSimpleHigh size={20} className="me-2" weight="fill"/>
-                        <span className="text-sm text-white">Best of DoubleQuotes</span>
+                        <Coins size={20} className="me-2"/>
+                        <span className="text-sm text-white">Glossary of Chips</span>
                     </div>
                 </div>
                 <hr className="border-0 h-[1px] bg-[#222320] my-2" />
                 <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
                     <div className="flex items-center">
-                        <Scroll size={20} className="me-2" weight="fill"/>
-                        <span className="text-sm text-white">Content Policy</span>
+                        <HourglassMedium size={20} className="me-2"/>
+                        <span className="text-sm text-white">Best Communities</span>
                     </div>
                 </div>
                 <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
                     <div className="flex items-center">
-                        <Scales size={20} className="me-2" weight="fill"/>
-                        <span className="text-sm text-white">Privacy Policy</span>
-                    </div>
-                </div>
-                <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
-                    <div className="flex items-center">
-                        <Handshake size={20} className="me-2" weight="fill"/>
-                        <span className="text-sm text-white">User Agreement</span>
+                        <Quotes size={20} className="me-2"/>
+                        <span className="text-sm text-white">About DoubleQuotes</span>
                     </div>
                 </div>
             </motion.div>

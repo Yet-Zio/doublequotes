@@ -18,9 +18,6 @@ export default function Sidebar() {
         </div>
         <SideTopics/>
         <SideRes/>
-        <div className="flex self-end justify-center items-center my-2">
-          <span className="text-xs text-slate-400">DoubleQuotes &copy; 2024. All rights reserved.</span>
-        </div>
         <div className="flex w-full justify-between items-center rounded-xl p-2 mb-1">
           <span className='text-transparent'>end div</span>
         </div>
