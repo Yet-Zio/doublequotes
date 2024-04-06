@@ -4,6 +4,7 @@ import Trending from './pages/Trending'
 import { useDQDispatch, useDQSelector } from '../redux/hooks'
 import { useEffect } from 'react'
 import { change } from '../redux/sidebar/SideOptSlice'
+import Explore from './pages/Explore'
 
 export default function DoubleQuotes({pagetorender}: PageToRenderProps) {
 
@@ -16,6 +17,8 @@ export default function DoubleQuotes({pagetorender}: PageToRenderProps) {
         return <Home/>
       case "Trending":
         return <Trending/>
+      case "Explore":
+        return <Explore/>
       default:
         return <Home/>
     }

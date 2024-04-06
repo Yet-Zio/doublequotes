@@ -79,8 +79,8 @@ export default function PostCard({forhome = false, view = "Card", postdetails} :
           </div>
           <Link to={"~/" + postdetails.communityname + "/comments/" + postdetails.postid} className="flex flex-col w-full h-[452px]">
             <span className="text-xl text-white h-[47px] font-bold mb-4 md:mb-1">{postdetails.title.slice(0, 52) + ". . ."}</span>
-            <div className="flex w-full h-[404px]">
-              {postdetails.thumbnail}
+            <div className="flex w-full h-[404px] mb-2 me-4 rounded-xl">
+              <img src={postdetails.thumbimg} className="flex w-full h-full rounded-xl object-cover"/>
             </div>
           </Link>
           <div className="flex w-full cursor-auto">

@@ -2,7 +2,7 @@ interface SideOptProps{
     option: string
 }
 
-type SideOptions = 'Home' | 'Trending'
+type SideOptions = 'Home' | 'Trending' | 'Explore'
 
 interface PopularCardProps{
     title: string
@@ -50,6 +50,7 @@ interface PostDetails{
     postid: string
     timestamp: string
     thumbnail: string
+    thumbimg?: string
     title: string
     description?: string
 }

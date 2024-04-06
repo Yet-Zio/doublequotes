@@ -1,4 +1,4 @@
-import { CaretUp, Coins, HourglassMedium, Question, Quotes } from "@phosphor-icons/react";
+import { CaretUp, Coins, Question, Quotes, TrendUp } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
@@ -59,7 +59,7 @@ export default function SideRes() {
                 <hr className="border-0 h-[1px] bg-[#222320] my-2" />
                 <div className="flex w-full justify-between items-center hover:bg-[#1f211d] rounded-xl p-2 mb-1">
                     <div className="flex items-center">
-                        <HourglassMedium size={20} className="me-2"/>
+                        <TrendUp size={20} className="me-2"/>
                         <span className="text-sm text-white">Best Communities</span>
                     </div>
                 </div>

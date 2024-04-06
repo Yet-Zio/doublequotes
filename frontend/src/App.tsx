@@ -11,6 +11,7 @@ export default function App() {
           <Route path="/" element={<DoubleQuotes pagetorender="Trending"/>}/>
           <Route path="/~/trending" element={<DoubleQuotes pagetorender="Trending"/>}/>
           <Route path="/~/home" element={<DoubleQuotes pagetorender="Home"/>}/>
+          <Route path="/~/explore" element={<DoubleQuotes pagetorender="Explore"/>}/>
         </Routes>
       </Router>
     </div>
