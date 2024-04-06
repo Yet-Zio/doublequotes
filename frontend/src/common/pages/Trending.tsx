@@ -14,7 +14,7 @@ const tempdetails: PostDetails = {
   timestamp: "52 min ago",
   thumbimg: "/img/gear5ssj.png",
   thumbnail: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, architecto natus. Assumenda amet enim inventore aliquid facilis quis repellendus! Dolorem molestiae ipsam voluptatum beatae odio omnis quis quia accusamus quam?",
-  title: "Dog attains Super Saiyan and Gear 5 at the same time, then develops multiple personality disorder.",
+  title: "Cat attains Super Saiyan and Gear 5 at the same time, then develops multiple personality disorder.",
   description: "Sussy description"
 }
 
