@@ -4,6 +4,7 @@ import PostCard from "../../components/cards/PostCard";
 import CardCarousel from "../../components/layout/CardCarousel";
 import PostLayout from "../../components/layout/PostLayout";
 import PopularSort from "../../components/oth/PopularSort";
+import { useDQSelector } from "../../redux/hooks";
 
 const tempdetails: PostDetails = {
   uname: "anonymous",
@@ -19,6 +20,7 @@ const tempdetails: PostDetails = {
 }
 
 export default function Trending() {
+  const cardtype = useDQSelector(state => state.sortopt.view)
   return (
     <div className="flex flex-col items-center w-fit">
       <CardCarousel>
@@ -37,7 +39,7 @@ export default function Trending() {
       </CardCarousel>
       <PopularSort/>
       <div className="flex flex-col md:w-[699px] self-start ps-2 md:ps-10 mb-7 md:pe-14">
-        <PostLayout view="Card" forhome={true}>
+        <PostLayout view={cardtype} forhome={true}>
           <PostCard postdetails={tempdetails}/>
           <PostCard postdetails={tempdetails}/>
         </PostLayout>

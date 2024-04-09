@@ -48,9 +48,9 @@ export default function PostCard({forhome = false, view = "Card", postdetails} :
   }, [postMenuRef])
 
   return (
-    <div className="flex flex-col w-[360px] md:w-[600px] cursor-pointer hover:bg-[#1f211d] rounded-xl mb-3 p-2 useinter">
+    <>
       {view === "Card" ? (
-        <>
+        <div className="flex flex-col w-[360px] md:w-[600px] cursor-pointer hover:bg-[#1f211d] rounded-xl mb-3 p-2 useinter">
           <div className="flex w-full justify-between">
             <div className="flex w-[1/4] justify-center items-center">
               <div className="flex w-[24px] h-[24px] rounded-full bg-cover justify-center items-center me-1" style={{backgroundImage: `url('/dbquotes.svg')`}} onClick={() => {navigate((forhome ? "~/" + postdetails.communityname : "u/" + postdetails.uname))}}></div>
@@ -98,13 +98,67 @@ export default function PostCard({forhome = false, view = "Card", postdetails} :
               <span className="text-sm">Share</span>
             </div>
           </div>
-        </>
+          <hr className='border-0 mt-4 h-[1px] bg-[#222320]'/>
+        </div>
+        
       ) : (
-        <>
-
-        </>
+        <div className="flex flex-col w-[360px] md:w-[600px] md:h-[120px] sm:h-[200px] cursor-pointer hover:bg-[#1f211d] rounded-xl mb-3 p-2 useinter">
+            <div className="flex w-full mb-2 me-4 rounded-xl">
+              <img src={postdetails.thumbimg} className="flex w-[102px] h-[76px] rounded-xl object-cover"/>
+              <div className="flex flex-col w-full">
+                <div className="flex w-full items-center">
+                  <div className="flex ms-2 w-[16px] h-[16px] rounded-full bg-cover justify-center items-center me-1" style={{backgroundImage: `url('/dbquotes.svg')`}} onClick={() => {navigate((forhome ? "~/" + postdetails.communityname : "u/" + postdetails.uname))}}></div>
+                  <Link to={(forhome ? "~/" + postdetails.communityname : "u/" + postdetails.uname)} className={`text-[#A9A74F] ms-1 text-xs ${forhome && "font-bold"} hover:text-[#A9A74F]/75`}>{forhome ? `${STARTQUOTE + postdetails.communityname + ENDQUOTE}` : `${postdetails.uname}`}</Link>
+                  <button className="ms-2 ps-4 pe-4 bg-[#A9A74F] hover:bg-[#A9A74F]/75 rounded-full text-xs h-6 justify-center items-center">Join</button>
+                  <span className="text-xs ms-1 me-1 text-slate-500">&nbsp;•&nbsp;</span>
+                  <span className="text-xs text-slate-400">{postdetails.timestamp}</span>
+                </div>
+                <div className="flex w-full items-center">
+                  <span className="ms-2 text-base text-white font-bold mb-4 md:mb-1">{postdetails.title.slice(0, 52) + ". . ."}</span>
+                </div>
+                <div className="md:flex w-full items-center mt-2 hidden">
+                  <div className="flex ms-1 p-1 ps-3 pe-3 rounded-full bg-[#1a1b18] me-2 cursor-auto">
+                    <ArrowFatUp size={16} className="hover:text-[#A9A74F] cursor-pointer me-1 rounded-full hover:bg-[#383c34]"/>
+                    <span className="text-xs me-1 select-text">{postdetails.score}</span>
+                    <ArrowFatDown size={16} className="hover:text-red-700 cursor-pointer rounded-full hover:bg-[#383c34]"/>
+                  </div>
+                  <div className="flex p-1 ps-3 pe-3 rounded-full bg-[#1a1b18] me-2 cursor-pointer hover:bg-[#383c34]">
+                    <ChatCenteredText size={16} className="me-1"/>
+                    <span className="text-xs">{postdetails.commentcount}</span>
+                  </div>
+                  <div className="flex p-1 ps-3 pe-3 rounded-full bg-[#1a1b18] cursor-pointer hover:bg-[#383c34]">
+                    <Export size={16} className="me-1"/>
+                    <span className="text-xs">Share</span>
+                  </div>
+                  <div className="flex ms-1 p-1 ps-3 pe-3 rounded-full bg-[#1a1b18] cursor-pointer hover:bg-[#383c34]">
+                    <Flag size={16} className="me-1"/>
+                    <span className="text-xs">Report</span>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div className="flex w-full items-center mt-2 md:hidden">
+            <div className="flex ms-1 p-1 ps-3 pe-3 rounded-full bg-[#1a1b18] me-2 cursor-auto">
+              <ArrowFatUp size={16} className="hover:text-[#A9A74F] cursor-pointer me-1 rounded-full hover:bg-[#383c34]"/>
+              <span className="text-xs me-1 select-text">{postdetails.score}</span>
+              <ArrowFatDown size={16} className="hover:text-red-700 cursor-pointer rounded-full hover:bg-[#383c34]"/>
+            </div>
+            <div className="flex p-1 ps-3 pe-3 rounded-full bg-[#1a1b18] me-2 cursor-pointer hover:bg-[#383c34]">
+              <ChatCenteredText size={16} className="me-1"/>
+              <span className="text-xs">{postdetails.commentcount}</span>
+            </div>
+            <div className="flex p-1 ps-3 pe-3 rounded-full bg-[#1a1b18] cursor-pointer hover:bg-[#383c34]">
+              <Export size={16} className="me-1"/>
+              <span className="text-xs">Share</span>
+            </div>
+            <div className="flex ms-1 p-1 ps-3 pe-3 rounded-full bg-[#1a1b18] cursor-pointer hover:bg-[#383c34]">
+              <Flag size={16} className="me-1"/>
+              <span className="text-xs">Report</span>
+            </div>
+          </div>
+          <hr className='border-0 h-[1px] mt-2 bg-[#222320]'/>
+        </div>
       )}
-      <hr className='border-0 mt-4 h-[1px] bg-[#222320]'/>
-    </div>
+      </>
   )
 }
