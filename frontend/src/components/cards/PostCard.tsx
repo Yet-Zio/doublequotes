@@ -54,7 +54,7 @@ export default function PostCard({forhome = false, view = "Card", postdetails} :
         <Link to={"/~/" + postdetails.communityname + "/comments/" + postdetails.postid} className="flex flex-col w-[360px] md:w-[600px] cursor-pointer hover:bg-[#1f211d] rounded-xl mb-3 p-2 useinter">
           <div className="flex w-full justify-between">
             <div className="flex w-[1/4] justify-center items-center">
-              <div className="flex w-[24px] h-[24px] rounded-full bg-cover justify-center items-center me-1" style={{backgroundImage: `url('/dbquotes.svg')`}} onClick={(e) => {e.preventDefault(); navigate((forhome ? "/~/" + postdetails.communityname : "u/" + postdetails.uname))}} onMouseEnter={() => {setAvHover(!avHover)}} onMouseLeave={() => {setAvHover(!avHover)}}></div>
+              <div className="flex w-[24px] h-[24px] rounded-full bg-cover justify-center items-center me-1" style={{backgroundImage: `url('${postdetails.avatar ? postdetails.avatar : "/dbquotes.svg"}')`}} onClick={(e) => {e.preventDefault(); navigate((forhome ? "/~/" + postdetails.communityname : "u/" + postdetails.uname))}} onMouseEnter={() => {setAvHover(!avHover)}} onMouseLeave={() => {setAvHover(!avHover)}}></div>
               <Link to={(forhome ? "/~/" + postdetails.communityname : "u/" + postdetails.uname)} className={`text-[#A9A74F] text-xs ${forhome && "font-bold"} hover:text-[#A9A74F]/75 ${avHover ? "text-[#A9A74F]/75": ""}`}>{forhome ? `${STARTQUOTE + postdetails.communityname + ENDQUOTE}` : `${postdetails.uname}`}</Link>
               <span className="text-xs me-1 text-slate-500">&nbsp;•&nbsp;</span>
               <span className="text-xs text-slate-400">{postdetails.timestamp}</span>
@@ -108,7 +108,7 @@ export default function PostCard({forhome = false, view = "Card", postdetails} :
               <img src={postdetails.thumbimg} className="flex w-[102px] h-[76px] rounded-xl object-cover" onClick={() => {navigate("/~/" + postdetails.communityname + "/comments/" + postdetails.postid)}}/>
               <div className="flex flex-col w-full">
                 <div className="flex w-full items-center">
-                  <div className="flex ms-2 w-[16px] h-[16px] rounded-full bg-cover justify-center items-center me-1" style={{backgroundImage: `url('/dbquotes.svg')`}} onClick={(e) => {e.preventDefault(); navigate((forhome ? "/~/" + postdetails.communityname : "u/" + postdetails.uname))}} onMouseEnter={() => {setAvHover(!avHover)}} onMouseLeave={() => {setAvHover(!avHover)}}></div>
+                  <div className="flex ms-2 w-[16px] h-[16px] rounded-full bg-cover justify-center items-center me-1" style={{backgroundImage: `url('${postdetails.avatar ? postdetails.avatar : "/dbquotes.svg"}')`}} onClick={(e) => {e.preventDefault(); navigate((forhome ? "/~/" + postdetails.communityname : "u/" + postdetails.uname))}} onMouseEnter={() => {setAvHover(!avHover)}} onMouseLeave={() => {setAvHover(!avHover)}}></div>
                   <Link to={(forhome ? "/~/" + postdetails.communityname : "u/" + postdetails.uname)} className={`text-[#A9A74F] ms-1 text-xs ${forhome && "font-bold"} hover:text-[#A9A74F]/75 ${avHover ? "text-[#A9A74F]/75": ""}`}>{forhome ? `${STARTQUOTE + postdetails.communityname + ENDQUOTE}` : `${postdetails.uname}`}</Link>
                   <button className="ms-2 ps-4 pe-4 bg-[#A9A74F] hover:bg-[#A9A74F]/75 rounded-full text-xs h-6 justify-center items-center" onClick={(e) => e.preventDefault()}>Join</button>
                   <span className="text-xs ms-1 me-1 text-slate-500">&nbsp;•&nbsp;</span>

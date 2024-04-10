@@ -9,14 +9,28 @@ import { useDQSelector } from "../../redux/hooks";
 const tempdetails: PostDetails = {
   uname: "anonymous",
   communityname: "anoncomm",
-  score: 320,
-  commentcount: 41,
+  score: "25K",
+  commentcount: "1K",
   postid: "a4eiow9e9203ekam023m43",
   timestamp: "52 min ago",
   thumbimg: "/img/gear5ssj.png",
   thumbnail: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, architecto natus. Assumenda amet enim inventore aliquid facilis quis repellendus! Dolorem molestiae ipsam voluptatum beatae odio omnis quis quia accusamus quam?",
   title: "Cat attains Super Saiyan and Gear 5 at the same time, then develops multiple personality disorder.",
   description: "Sussy description"
+}
+
+const anondetails: PostDetails = {
+  uname: "pr09RAmm3r",
+  communityname: "pr09RAmm3rH0rr0r",
+  score: "30K",
+  commentcount: "1K",
+  postid: "bg9fg9fenrfdkddfoewqi",
+  timestamp: "5 hr ago",
+  thumbimg: "/img/heckerpost.jpg",
+  thumbnail: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus, architecto natus. Assumenda amet enim inventore aliquid facilis quis repellendus! Dolorem molestiae ipsam voluptatum beatae odio omnis quis quia accusamus quam?",
+  title: "10 year old hacker leaks major AAA game source code Companies in shock.",
+  description: "hecker",
+  avatar: "/img/hecker.jpg"
 }
 
 export default function Trending() {
@@ -39,16 +53,10 @@ export default function Trending() {
       </CardCarousel>
       <PopularSort/>
       <div className="flex flex-col md:w-[699px] self-start ps-2 md:ps-10 mb-7 md:pe-14">
-        <PostLayout view={cardtype}>
+        <PostLayout view={cardtype} forhome={true}>
+          <PostCard postdetails={anondetails}/>
           <PostCard postdetails={tempdetails}/>
-          <PostCard postdetails={tempdetails}/>
-          <PostCard postdetails={tempdetails}/>
-          <PostCard postdetails={tempdetails}/>
-          <PostCard postdetails={tempdetails}/>
-          <PostCard postdetails={tempdetails}/>
-          <PostCard postdetails={tempdetails}/>
-          <PostCard postdetails={tempdetails}/>
-          <PostCard postdetails={tempdetails}/>
+          <PostCard postdetails={anondetails}/>
         </PostLayout>
         <PopularCommunities/>
       </div>

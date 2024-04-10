@@ -45,14 +45,15 @@ interface PostLayoutProps{
 interface PostDetails{
     uname: string
     communityname: string
-    score: number
-    commentcount: number
+    score: string
+    commentcount: string
     postid: string
     timestamp: string
     thumbnail: string
     thumbimg?: string
     title: string
     description?: string
+    avatar?: string
 }
 
 interface PostCardProps{
