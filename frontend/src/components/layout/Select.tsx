@@ -79,7 +79,7 @@ export default function Select({type}: SortSelectProps) {
                 </div>
                 <AnimatePresence>
                     {isTypeExpand && (
-                        <motion.div className="flex mt-10 absolute bg-[#1a1e15] flex-col w-[80px] h-[285px] space-y-1 rounded-lg"
+                        <motion.div className="flex mt-10 absolute bg-[#1a1e15] flex-col w-[80px] h-[280px] space-y-1 rounded-lg"
                             variants={expandVariants}
                             initial="hidden"
                             animate="visible"
@@ -89,7 +89,7 @@ export default function Select({type}: SortSelectProps) {
                             <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${typeoptions[1] === currentType ? "bg-[#444e37]" : ""}`} onClick={() => {dispatch(changetype(typeoptions[1])); setIsTypeExpand(!isTypeExpand)}}><span className="text-sm">{typeoptions[1]}</span></div>
                             <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${typeoptions[2] === currentType ? "bg-[#444e37]" : ""}`} onClick={() => {dispatch(changetype(typeoptions[2])); setIsTypeExpand(!isTypeExpand)}}><span className="text-sm">{typeoptions[2]}</span></div>
                             <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${typeoptions[3] === currentType ? "bg-[#444e37]" : ""}`} onClick={() => {dispatch(changetype(typeoptions[3])); setIsTypeExpand(!isTypeExpand)}}><span className="text-sm">{typeoptions[3]}</span></div>
-                            <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] pb-2 ${typeoptions[4] === currentType ? "bg-[#444e37]" : ""}`} onClick={() => {dispatch(changetype(typeoptions[4])); setIsTypeExpand(!isTypeExpand)}}><span className="text-sm">{typeoptions[4]}</span></div>
+                            <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] pb-2 ${typeoptions[4] === currentType ? "bg-[#444e37]" : ""} rounded-b-md`} onClick={() => {dispatch(changetype(typeoptions[4])); setIsTypeExpand(!isTypeExpand)}}><span className="text-sm">{typeoptions[4]}</span></div>
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -102,14 +102,14 @@ export default function Select({type}: SortSelectProps) {
             </div>
             <AnimatePresence>
                 {isLocExpand && (
-                    <motion.div className="flex mt-10 absolute bg-[#1a1e15] flex-col w-[130px] h-[140px] space-y-1 rounded-lg"
+                    <motion.div className="flex mt-10 absolute bg-[#1a1e15] flex-col w-[130px] h-[135px] space-y-1 rounded-lg"
                         variants={expandVariants}
                         initial="hidden"
                         animate="visible"
                         exit="hidden">
                         <span className="text-sm font-bold p-2 pt-3">Sort by</span>
                         <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${locoptions[0] === currentLocation ? "bg-[#444e37]" : ""}`} onClick={() => {dispatch(changelocation(locoptions[0])); setIsLocExpand(!isLocExpand)}}><span className="text-sm">{locoptions[0]}</span></div>
-                        <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${locoptions[1] === currentLocation ? "bg-[#444e37]" : ""}`} onClick={() => {dispatch(changelocation(locoptions[1])); setIsLocExpand(!isLocExpand)}}><span className="text-sm">{locoptions[1]}</span></div>
+                        <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${locoptions[1] === currentLocation ? "bg-[#444e37]" : ""} rounded-b-md`} onClick={() => {dispatch(changelocation(locoptions[1])); setIsLocExpand(!isLocExpand)}}><span className="text-sm">{locoptions[1]}</span></div>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -122,14 +122,14 @@ export default function Select({type}: SortSelectProps) {
             </div>
             <AnimatePresence>
                 {isViewExpand && (
-                    <motion.div className="flex mt-10 absolute z-20 bg-[#1a1e15] flex-col w-[130px] h-[140px] space-y-1 rounded-lg"
+                    <motion.div className="flex mt-10 absolute z-20 bg-[#1a1e15] flex-col w-[130px] h-[135px] space-y-1 rounded-lg"
                         variants={expandVariants}
                         initial="hidden"
                         animate="visible"
                         exit="hidden">
                         <span className="text-sm font-bold p-2 pt-3">View</span>
                         <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${viewoptions[0] === currentView ? "bg-[#444e37]" : ""}`} onClick={() => {dispatch(changeview(viewoptions[0])); setIsViewExpand(!isViewExpand)}}><span className="text-sm flex"><Rows size={20} weight="fill" className="me-2"/>{viewoptions[0]}</span></div>
-                        <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${viewoptions[1] === currentView ? "bg-[#444e37]" : ""}`} onClick={() => {dispatch(changeview(viewoptions[1])); setIsViewExpand(!isViewExpand)}}><span className="text-sm flex"><List size={20} weight="fill" className="me-2"/>{viewoptions[1]}</span></div>
+                        <div className={`bg-[#1a1e15] cursor-pointer h-11 flex justify-center items-center hover:bg-[#2a3022] ${viewoptions[1] === currentView ? "bg-[#444e37]" : ""} rounded-b-md`} onClick={() => {dispatch(changeview(viewoptions[1])); setIsViewExpand(!isViewExpand)}}><span className="text-sm flex"><List size={20} weight="fill" className="me-2"/>{viewoptions[1]}</span></div>
                     </motion.div>
                 )}
             </AnimatePresence>
