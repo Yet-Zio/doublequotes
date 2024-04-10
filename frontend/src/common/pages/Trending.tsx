@@ -39,7 +39,14 @@ export default function Trending() {
       </CardCarousel>
       <PopularSort/>
       <div className="flex flex-col md:w-[699px] self-start ps-2 md:ps-10 mb-7 md:pe-14">
-        <PostLayout view={cardtype} forhome={true}>
+        <PostLayout view={cardtype}>
+          <PostCard postdetails={tempdetails}/>
+          <PostCard postdetails={tempdetails}/>
+          <PostCard postdetails={tempdetails}/>
+          <PostCard postdetails={tempdetails}/>
+          <PostCard postdetails={tempdetails}/>
+          <PostCard postdetails={tempdetails}/>
+          <PostCard postdetails={tempdetails}/>
           <PostCard postdetails={tempdetails}/>
           <PostCard postdetails={tempdetails}/>
         </PostLayout>

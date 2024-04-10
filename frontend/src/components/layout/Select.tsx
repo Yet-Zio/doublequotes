@@ -122,7 +122,7 @@ export default function Select({type}: SortSelectProps) {
             </div>
             <AnimatePresence>
                 {isViewExpand && (
-                    <motion.div className="flex mt-10 absolute bg-[#1a1e15] flex-col w-[130px] h-[140px] space-y-1 rounded-lg"
+                    <motion.div className="flex mt-10 absolute z-20 bg-[#1a1e15] flex-col w-[130px] h-[140px] space-y-1 rounded-lg"
                         variants={expandVariants}
                         initial="hidden"
                         animate="visible"
