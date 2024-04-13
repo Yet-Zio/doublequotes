@@ -55,7 +55,7 @@ export default function PostCard({forhome = false, view = "Card", postdetails} :
           <div className="flex w-full justify-between">
             <div className="flex w-[1/4] justify-center items-center">
               <div className="flex w-[24px] h-[24px] rounded-full bg-cover justify-center items-center me-1" style={{backgroundImage: `url('${postdetails.avatar ? postdetails.avatar : "/dbquotes.svg"}')`}} onClick={(e) => {e.preventDefault(); navigate((forhome ? "/~/" + postdetails.communityname : "u/" + postdetails.uname))}} onMouseEnter={() => {setAvHover(!avHover)}} onMouseLeave={() => {setAvHover(!avHover)}}></div>
-              <Link to={(forhome ? "/~/" + postdetails.communityname : "u/" + postdetails.uname)} className={`text-[#A9A74F] text-xs ${forhome && "font-bold"} hover:text-[#A9A74F]/75 ${avHover ? "text-[#A9A74F]/75": ""}`}>{forhome ? `${STARTQUOTE + postdetails.communityname + ENDQUOTE}` : `${postdetails.uname}`}</Link>
+              <div className={`text-[#A9A74F] text-xs ${forhome && "font-bold"} hover:text-[#A9A74F]/75 ${avHover ? "text-[#A9A74F]/75": ""}`} onClick={(e) => {e.preventDefault(); navigate(forhome ? "/~/" + postdetails.communityname : "u/" + postdetails.uname)}}>{forhome ? `${STARTQUOTE + postdetails.communityname + ENDQUOTE}` : `${postdetails.uname}`}</div>
               <span className="text-xs me-1 text-slate-500">&nbsp;•&nbsp;</span>
               <span className="text-xs text-slate-400">{postdetails.timestamp}</span>
             </div>
@@ -78,12 +78,12 @@ export default function PostCard({forhome = false, view = "Card", postdetails} :
               </AnimatePresence>
             </div>
           </div>
-          <Link to={"/~/" + postdetails.communityname + "/comments/" + postdetails.postid} className="flex flex-col w-full h-[452px]">
+          <div className="flex flex-col w-full h-[452px]" onClick={(e) => {e.preventDefault(); navigate("/~/" + postdetails.communityname + "/comments/" + postdetails.postid)}}>
             <span className="text-xl text-white h-[47px] font-bold mb-4 md:mb-1">{postdetails.title.slice(0, 52) + ". . ."}</span>
             <div className="flex w-full h-[404px] mb-2 me-4 rounded-xl">
               <img src={postdetails.thumbimg} className="flex w-full h-full rounded-xl object-cover"/>
             </div>
-          </Link>
+          </div>
           <div className="flex w-full">
             <div className="flex p-2 ps-3 pe-3 rounded-full bg-[#1a1b18] me-2 cursor-auto" onClick={(e) => e.preventDefault()}>
               <ArrowFatUp size={20} className="hover:text-[#A9A74F] cursor-pointer me-1 rounded-full hover:bg-[#383c34]"/>
@@ -104,19 +104,19 @@ export default function PostCard({forhome = false, view = "Card", postdetails} :
         
       ) : (
         <div className="flex flex-col w-[360px] md:w-[600px] md:h-[120px] sm:h-[200px] cursor-pointer hover:bg-[#1f211d] rounded-xl mb-3 p-2 useinter">
-            <Link to={"/~/" + postdetails.communityname + "/comments/" + postdetails.postid} className="flex w-full mb-2 me-4 rounded-xl">
+            <div className="flex w-full mb-2 me-4 rounded-xl" onClick={(e) => {e.preventDefault(); navigate("/~/" + postdetails.communityname + "/comments/" + postdetails.postid)}}>
               <img src={postdetails.thumbimg} className="flex w-[102px] h-[76px] rounded-xl object-cover" onClick={() => {navigate("/~/" + postdetails.communityname + "/comments/" + postdetails.postid)}}/>
               <div className="flex flex-col w-full">
                 <div className="flex w-full items-center">
                   <div className="flex ms-2 w-[16px] h-[16px] rounded-full bg-cover justify-center items-center me-1" style={{backgroundImage: `url('${postdetails.avatar ? postdetails.avatar : "/dbquotes.svg"}')`}} onClick={(e) => {e.preventDefault(); navigate((forhome ? "/~/" + postdetails.communityname : "u/" + postdetails.uname))}} onMouseEnter={() => {setAvHover(!avHover)}} onMouseLeave={() => {setAvHover(!avHover)}}></div>
-                  <Link to={(forhome ? "/~/" + postdetails.communityname : "u/" + postdetails.uname)} className={`text-[#A9A74F] ms-1 text-xs ${forhome && "font-bold"} hover:text-[#A9A74F]/75 ${avHover ? "text-[#A9A74F]/75": ""}`}>{forhome ? `${STARTQUOTE + postdetails.communityname + ENDQUOTE}` : `${postdetails.uname}`}</Link>
+                  <div className={`text-[#A9A74F] ms-1 text-xs ${forhome && "font-bold"} hover:text-[#A9A74F]/75 ${avHover ? "text-[#A9A74F]/75": ""}`} onClick={(e) => {e.preventDefault(); navigate(forhome ? "/~/" + postdetails.communityname : "u/" + postdetails.uname)}}>{forhome ? `${STARTQUOTE + postdetails.communityname + ENDQUOTE}` : `${postdetails.uname}`}</div>
                   <button className="ms-2 ps-4 pe-4 bg-[#A9A74F] hover:bg-[#A9A74F]/75 rounded-full text-xs h-6 justify-center items-center" onClick={(e) => e.preventDefault()}>Join</button>
                   <span className="text-xs ms-1 me-1 text-slate-500">&nbsp;•&nbsp;</span>
                   <span className="text-xs text-slate-400">{postdetails.timestamp}</span>
                 </div>
-                <Link to={"/~/" + postdetails.communityname + "/comments/" + postdetails.postid} className="flex w-full items-center">
+                <div className="flex w-full items-center" onClick={(e) => {e.preventDefault(); navigate("/~/" + postdetails.communityname + "/comments/" + postdetails.postid)}}>
                   <span className="ms-2 text-base text-white font-bold mb-4 md:mb-1">{postdetails.title.slice(0, 52) + ". . ."}</span>
-                </Link>
+                </div>
                 <div className="md:flex w-full items-center mt-2 hidden">
                   <div className="flex ms-1 p-1 ps-3 pe-3 rounded-full bg-[#1a1b18] me-2 cursor-auto" onClick={(e) => e.preventDefault()}>
                     <ArrowFatUp size={16} className="hover:text-[#A9A74F] cursor-pointer me-1 rounded-full hover:bg-[#383c34]"/>
@@ -137,7 +137,7 @@ export default function PostCard({forhome = false, view = "Card", postdetails} :
                   </div>
                 </div>
               </div>
-          </Link>
+          </div>
           <div className="flex w-full items-center mt-2 md:hidden">
             <div className="flex ms-1 p-1 ps-3 pe-3 rounded-full bg-[#1a1b18] me-2 cursor-auto" onClick={(e) => e.preventDefault()}>
               <ArrowFatUp size={16} className="hover:text-[#A9A74F] cursor-pointer me-1 rounded-full hover:bg-[#383c34]"/>

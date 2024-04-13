@@ -1,4 +1,4 @@
-import { Quotes, MagnifyingGlass, DotsThree, SignIn, HandCoins, Question} from '@phosphor-icons/react'
+import { Quotes, MagnifyingGlass, DotsThree, SignIn, Question, Storefront} from '@phosphor-icons/react'
 import { AnimatePresence, motion} from 'framer-motion';
 import { useEffect, useRef, useState } from 'react'
 
@@ -62,15 +62,15 @@ export default function Navbar() {
               exit="hidden"
               className='absolute flex flex-col mt-12 right-0 w-[256px] h-[157px] z-30 bg-[#1a1e15] rounded-xl useinter'
             >
-              <div className="flex mt-2 w-full items-center hover:bg-[#242a1d] pt-3 pb-3 cursor-pointer select-none">
+              <div className="flex mt-2 w-full items-center hover:bg-[#242a1d] pt-3 pb-3 cursor-pointer select-none" onClick={() => window.location.href = "/login"}>
                 <SignIn size={20} className='ms-5 me-2'/>
                 <span className='text-sm'>Login / Signup</span>
               </div>
-              <div className="flex mt-2 w-full items-center hover:bg-[#242a1d] pt-3 pb-3 cursor-pointer select-none">
-                <HandCoins size={20} className='ms-5 me-2'/>
-                <span className='text-sm'>Chip Trades</span>
+              <div className="flex mt-2 w-full items-center hover:bg-[#242a1d] pt-3 pb-3 cursor-pointer select-none" onClick={() => window.location.href = "/itemshop"}>
+                <Storefront size={20} className='ms-5 me-2'/>
+                <span className='text-sm'>Item Shop</span>
               </div>
-              <div className="flex mt-2 w-full items-center hover:bg-[#242a1d] rounded-b-xl pt-3 pb-3 cursor-pointer select-none">
+              <div className="flex mt-2 w-full items-center hover:bg-[#242a1d] rounded-b-xl pt-3 pb-3 cursor-pointer select-none" onClick={() => window.location.href = "/help"}>
                 <Question size={20} className='ms-5 me-2'/>
                 <span className='text-sm'>Help</span>
               </div>
