@@ -57,7 +57,7 @@ export default function CardCarousel({ children }: CardCarouselProps) {
         )}
       </AnimatePresence>
     </div>
-    <div className="relative hide-ver-scroll flex xl:hidden w-[360px] md:w-[600px] h-52 mt-3 space-x-3 overflow-x-auto mb-2">
+    <div className="relative hide-ver-scroll flex xl:hidden w-[320px] md:w-[600px] h-52 mt-3 space-x-3 overflow-x-auto mb-2">
       {children}
     </div>
     </>
