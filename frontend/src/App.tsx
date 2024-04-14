@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Header from './shared/Header'
 import DoubleQuotes from "./common/DoubleQuotes"
+import Login from "./common/auth/Login"
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
           <Route path="/~/trending" element={<DoubleQuotes pagetorender="Trending"/>}/>
           <Route path="/~/home" element={<DoubleQuotes pagetorender="Home"/>}/>
           <Route path="/~/explore" element={<DoubleQuotes pagetorender="Explore"/>}/>
+          <Route path="/login" element={<Login/>}/>
         </Routes>
       </Router>
     </div>

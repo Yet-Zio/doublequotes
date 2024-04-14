@@ -51,7 +51,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className="flex relative">
-        <button className='flex justify-center items-center h-10 pt-5 pb-5 ps-3 pe-3 bg-[#A9A74F] rounded-full useinter text-sm hover:bg-[#A9A74F]/75'>Log&nbsp;In</button>
+        <button className='flex justify-center items-center h-10 pt-5 pb-5 ps-3 pe-3 bg-[#A9A74F] rounded-full useinter text-sm hover:bg-[#A9A74F]/75' onClick={() => {window.location.href = "/login"}}>Log&nbsp;In</button>
         <button ref={dropRef} className='font-bold ms-2 flex justify-center items-center h-10 w-10 bg-[#0c0d0c] rounded-full useinter text-sm hover:bg-[#1f211d]' onClick={() => setAuthDrop(!authDrop)}><DotsThree size={28}/></button>
         <AnimatePresence>
           {authDrop && (

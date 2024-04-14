@@ -13,6 +13,7 @@
     "@phosphor-icons/react": "^2.0.15",
     "@reduxjs/toolkit": "^2.2.2",
     "axios": "^1.6.8",
+    "css-doodle": "^0.39.0",
     "framer-motion": "^11.0.22",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

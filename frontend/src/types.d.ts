@@ -61,3 +61,9 @@ interface PostCardProps{
     view?: PostCardType
     postdetails: PostDetails
 }
+
+declare namespace JSX {
+    interface IntrinsicElements {
+      'css-doodle': {}
+    }
+}
