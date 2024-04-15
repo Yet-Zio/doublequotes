@@ -44,6 +44,8 @@ export default function Navbar() {
         <Quotes size={40} className='text-[#A9A74F] hover:cursor-pointer' weight='bold' onClick={() => {window.location.href = "/"}}/>
         <span className='text-2xl text-white usedbquotes ms-2 hover:cursor-pointer select-none hidden md:flex' onClick={() => {window.location.href = "/"}}>Double<span className='text-[#A9A74F]'>Quotes</span></span>
       </div>
+      {window.location.pathname !== "/login" ? (
+      <>
       <div className="flex w-full justify-start ms-3 md:justify-center md:ms-0">
         <div onClick={() => {inputRef.current?.focus()}} className="flex justify-center pt-2 pb-2 ps-5 pe-7 rounded-2xl bg-[#1f211d] text-gray-400 outline-0 border-0 hover:bg-[#1f211d]/75 items-center">
           <MagnifyingGlass size={20} onClick={() => {inputRef.current?.focus()}}/>
@@ -78,6 +80,11 @@ export default function Navbar() {
           )}
         </AnimatePresence>
       </div>
+      </>
+      ) : (
+        ""
+      )}
+      
     </nav>
   )
 }
