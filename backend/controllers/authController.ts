@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { sendVerificationMail } from "../services/mailSender";
 import jwt from "jsonwebtoken"
 import { isFakeEmail } from "fakefilter";
-
+import { isEmail, matches, isLength} from "validator";
 export const signup = async (req: Request, res: Response, next: NextFunction) => {
     try{
         const { uname, email, password }: AuthBody = req.body
@@ -100,13 +100,22 @@ export const checkemail = async(req: Request, res: Response, next: NextFunction)
         const { email } : AuthBody = req.body
 
         if(email){
-            const user = await User.findOne({email: email})
-
-            if(user){
-                return res.status(409).json({res: "EMAIL_ALREADY_EXISTS", success: false})
+            if(isEmail(email)){
+                const user = await User.findOne({email: email})
+                if(user){
+                    return res.status(409).json({res: "EMAIL_ALREADY_EXISTS", success: false})
+                }
+                else{
+                    if(isFakeEmail(email)){
+                        return res.status(409).json({res: "TEMP_MAIL_DETECTED", success: false})
+                    }
+                    else{
+                        return res.status(200).json({res: "NEW_VALID_EMAIL", success: true})
+                    }
+                }
             }
             else{
-                return res.status(200).json({res: "NEW_CREDENTIAL", success: true})
+                return res.status(409).json({res: "NOT_AN_EMAIL", success: false})
             }
         }
         else{
@@ -123,13 +132,18 @@ export const checkuname = async(req: Request, res: Response, next: NextFunction)
         const { uname } : AuthBody = req.body
 
         if(uname){
-            const user = await User.findOne({email: uname})
+            if(matches(uname, "^[a-zA-Z0-9_\.\-]*$") && isLength(uname, {min: 3, max: 20})){
+                const user = await User.findOne({uname: uname})
 
-            if(user){
-                return res.status(409).json({res: "UNAME_ALREADY_EXISTS", success: false})
+                if(user){
+                    return res.status(409).json({res: "UNAME_ALREADY_EXISTS", success: false})
+                }
+                else{
+                    return res.status(200).json({res: "NEW_VALID_USERNAME", success: true})
+                }
             }
             else{
-                return res.status(200).json({res: "NEW_CREDENTIAL", success: true})
+                return res.status(409).json({res: "INVALID_USERNAME_FORMAT", success: false})
             }
         }
         else{

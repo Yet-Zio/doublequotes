@@ -2,6 +2,8 @@ import { FormEvent, useEffect, useState } from "react";
 import Doodle from "./Doodle";
 import { CheckFat, Eye, EyeSlash, WarningCircle } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { Tooltip } from 'react-tooltip'
 
 export default function Login() {
 
@@ -13,6 +15,13 @@ export default function Login() {
   const [emailFocused, setEmailFocused] = useState(false)
   const [unameFocused, setUnameFocused] = useState(false)
   const [signupDetails, setSignupDetails] = useState({id: "", uname: "", password: ""})
+
+  const [emailExists, setEmailExists] = useState(false)
+  const [emailTooltip, setEmailTooltip] = useState("")
+  const [unameExists, setUnameExists] = useState(false)
+  const [unameTooltip, setUnameTooltip] = useState("")
+
+  const API = "http://localhost:3000/api/auth"
 
   const handleGoogleSigninResponse = (response: any) => {
     console.log("Encoded JWT:", response.credential)
@@ -48,6 +57,75 @@ export default function Login() {
     document.querySelectorAll('css-doodle').forEach(function (o: any) {o.update()})
   }
 
+  const checkMailExists = async () => {
+    const mailAPI = `${API}/checkemail`
+    axios.post(mailAPI, {
+      email: signupDetails.id
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      console.log(response)
+      setEmailExists(false)
+
+      if(response.data.res === "NEW_VALID_EMAIL"){
+        setEmailTooltip("Entered email is valid")
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      setEmailExists(true)
+
+      const res: string = err.response.data.res
+      if(res === "NOT_AN_EMAIL"){
+        setEmailTooltip("Invalid email format.")
+      }
+      else if(res === "EMAIL_ALREADY_EXISTS"){
+        setEmailTooltip("An account with this email already exists.")
+      }
+      else if(res === "TEMP_MAIL_DETECTED"){
+        setEmailTooltip("Disposable emails are not allowed!")
+      }
+      else{
+        setEmailTooltip("Invalid format!")
+      }
+    })
+  }
+
+  const checkUnameExists = async () => {
+    const unameAPI = `${API}/checkuname`
+    axios.post(unameAPI, {
+      uname: signupDetails.uname
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      console.log(response)
+      setUnameExists(false)
+
+      if(response.data.res === "NEW_VALID_USERNAME"){
+        setUnameTooltip("Entered username is valid.")
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      setUnameExists(true)
+
+      const res: string = err.response.data.res
+      if(res === "INVALID_USERNAME_FORMAT"){
+        setUnameTooltip("Usernames can only contain letters, numbers, underscores, dashes and dots. Usernames should be 3-20 characters in length.")
+      }
+      else if(res === "UNAME_ALREADY_EXISTS"){
+        setUnameTooltip("An account with this username already exists.")
+      }
+      else{
+        setUnameTooltip("Invalid format!")
+      }
+    })
+  }
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     if(isLogin){
@@ -76,18 +154,26 @@ export default function Login() {
            : (
             <>
             <div className={`flex mt-5 ms-5 me-5 rounded-3xl items-center  text-gray-400 placeholder-gray-400 hover:bg-[#3e4535]/50 ${emailFocused ? "bg-[#3e4535]/50" : "bg-[#3e4535]/25"}`}>
-              <input value={signupDetails.id} onChange={(e) => {setSignupDetails({...signupDetails, id: e.target.value})}} type="text" className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0" placeholder="Email *" required onFocus={() => setEmailFocused(!emailFocused)} onBlur={() => setEmailFocused(!emailFocused)}/>
-              {/* <CheckFat size={16} weight="fill" className="me-5 text-[#A9A74F]"/> */}
-              {/* <WarningCircle size={24} weight="fill" className="me-5 text-rose-500"/> */}
+              <input value={signupDetails.id} onChange={(e) => {setSignupDetails({...signupDetails, id: e.target.value})}} type="text" className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0" placeholder="Email *" required onFocus={() => setEmailFocused(!emailFocused)} onBlur={() => {setEmailFocused(!emailFocused); checkMailExists()}}/>
+              {signupDetails.id && (
+                !emailExists ? (<><CheckFat size={16} weight="fill" className="me-5 text-[#A9A74F]" data-tooltip-id="emailTooltip" data-tooltip-content={emailTooltip}/>
+                <Tooltip id="emailTooltip" style={{backgroundColor: "rgb(169, 167, 79)"}}/></>)
+               : (<><WarningCircle size={24} weight="fill" className="me-5 text-rose-500" data-tooltip-id="emailTooltip" data-tooltip-content={emailTooltip}/>
+               <Tooltip id="emailTooltip" style={{backgroundColor: "rgb(159, 18, 57)"}}/></>)
+               )}
             </div>
             <div className={`flex mt-5 ms-5 me-5 rounded-3xl items-center  text-gray-400 placeholder-gray-400 hover:bg-[#3e4535]/50 ${unameFocused ? "bg-[#3e4535]/50" : "bg-[#3e4535]/25"}`}>
-              <input value={signupDetails.uname} onChange={(e) => {setSignupDetails({...signupDetails, uname: e.target.value})}} type="text" className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0" placeholder="Username *" required onFocus={() => setUnameFocused(!unameFocused)} onBlur={() => setUnameFocused(!unameFocused)}/>
-              {/* <CheckFat size={16} weight="fill" className="me-5 text-[#A9A74F]"/> */}
-              {/* <WarningCircle size={24} weight="fill" className="me-5 text-rose-500"/> */}
+              <input value={signupDetails.uname} onChange={(e) => {setSignupDetails({...signupDetails, uname: e.target.value})}} type="text" className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0" placeholder="Username *" required onFocus={() => setUnameFocused(!unameFocused)} onBlur={() => {setUnameFocused(!unameFocused); checkUnameExists()}}/>
+              {signupDetails.uname && (
+                !unameExists ? (<><CheckFat size={16} weight="fill" className="me-5 text-[#A9A74F]" data-tooltip-id="unameTooltip" data-tooltip-content={unameTooltip}/>
+                <Tooltip id="unameTooltip" style={{backgroundColor: "rgb(169, 167, 79)"}}/></>)
+               : (<><WarningCircle size={24} weight="fill" className="me-5 text-rose-500" data-tooltip-id="unameTooltip" data-tooltip-content={unameTooltip}/>
+               <Tooltip id="unameTooltip" style={{backgroundColor: "rgb(159, 18, 57)"}}/></>)
+               )}
             </div>
             <div className={`flex mt-5 ms-5 me-5 rounded-3xl items-center  text-gray-400 placeholder-gray-400 hover:bg-[#3e4535]/50 ${passFocused ? "bg-[#3e4535]/50" : "bg-[#3e4535]/25"}`}>
               <input value={signupDetails.password} onChange={(e) => {setSignupDetails({...signupDetails, password: e.target.value})}} type={passHidden ? "password" : "text"} className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0" placeholder="Password *" required onFocus={() => setPassFocused(!passFocused)} onBlur={() => setPassFocused(!passFocused)}/>
-              {passHidden ? <EyeSlash size={24} onClick={() => setPassHidden(!passHidden)} className="me-5"/> : 
+              {passHidden ? <EyeSlash size={24} onClick={() => setPassHidden(!passHidden)} className="me-5"/> :
               <Eye size={24} onClick={() => setPassHidden(!passHidden)} className="me-5"/>}
             </div>
             </>
