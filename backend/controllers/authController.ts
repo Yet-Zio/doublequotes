@@ -34,18 +34,18 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
 
                 const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: 2 * 24 * 60 * 60})
 
-                res.cookie("accessToken", token, {httpOnly: true}).status(200).json({success: true})
+                return res.cookie("accessToken", token, {httpOnly: true}).status(200).json({success: true})
             }
             else{
-                next(errorHandler(409, "User already exists!"))
+                return next(errorHandler(409, "User already exists!"))
             }
         }
         else{
-            next(errorHandler(400, "Invalid credential format"))
+            return next(errorHandler(400, "Invalid credential format"))
         }
     }
     catch(err){
-        next(errorHandler)
+        return next(errorHandler)
     }
 }
 
@@ -64,33 +64,79 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
             if(unameUser){
                 const isPasswordValid = await argon2.verify(unameUser.password, password)
-                if(!isPasswordValid) next(errorHandler(401, "Invalid Password!"))
+                if(!isPasswordValid) return next(errorHandler(401, "Invalid Password!"))
                 payload.id = unameUser.id
                 success = true
             }
             else if(emailUser){
                 const isPasswordValid = await argon2.verify(emailUser.password, password)
-                if(!isPasswordValid) next(errorHandler(401, "Invalid Password!"))
+                if(!isPasswordValid) return next(errorHandler(401, "Invalid Password!"))
                 payload.id = emailUser.id
                 success = true
             }
             else{
-                next(errorHandler(404, "User not found!"))
+                return next(errorHandler(404, "User not found!"))
             }
 
             if(success){
                 const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: 2 * 24 * 60 * 60})
-                res.cookie("accessToken", token, {httpOnly: true}).status(200).json({success})
+                return res.cookie("accessToken", token, {httpOnly: true}).status(200).json({success})
             }
             else{
-                next(errorHandler(500, "Something went wrong"))
+                return next(errorHandler(500, "Something went wrong"))
             }
         }
         else{
-            next(errorHandler(400, "Invalid credential format"))
+            return next(errorHandler(400, "Invalid credential format"))
         }
     }
     catch(err){
-        next(errorHandler)
+        return next(errorHandler)
+    }
+}
+
+export const checkemail = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { email } : AuthBody = req.body
+
+        if(email){
+            const user = await User.findOne({email: email})
+
+            if(user){
+                return res.status(409).json({res: "EMAIL_ALREADY_EXISTS", success: false})
+            }
+            else{
+                return res.status(200).json({res: "NEW_CREDENTIAL", success: true})
+            }
+        }
+        else{
+            return next(errorHandler(400, "Invalid credential format"))
+        }
+    }
+    catch(err){
+        return next(errorHandler)
+    }
+}
+
+export const checkuname = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { uname } : AuthBody = req.body
+
+        if(uname){
+            const user = await User.findOne({email: uname})
+
+            if(user){
+                return res.status(409).json({res: "UNAME_ALREADY_EXISTS", success: false})
+            }
+            else{
+                return res.status(200).json({res: "NEW_CREDENTIAL", success: true})
+            }
+        }
+        else{
+            return next(errorHandler(400, "Invalid credential format"))
+        }
+    }
+    catch(err){
+        return next(errorHandler)
     }
 }
