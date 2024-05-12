@@ -32,9 +32,10 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
                     id: newuser.id
                 }
 
-                const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: 2 * 24 * 60 * 60})
-
-                return res.cookie("accessToken", token, {httpOnly: true}).status(200).json({success: true})
+                const expiresInWeek = 7 * 24 * 60 * 60;
+                const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: expiresInWeek})
+                const expiryDate = new Date(Date.now() + expiresInWeek * 1000)
+                return res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate}).status(200).json({success : true})
             }
             else{
                 return next(errorHandler(409, "User already exists!"))
@@ -79,8 +80,10 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
             }
 
             if(success){
-                const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: 2 * 24 * 60 * 60})
-                return res.cookie("accessToken", token, {httpOnly: true}).status(200).json({success})
+                const expiresInWeek = 7 * 24 * 60 * 60;
+                const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: expiresInWeek})
+                const expiryDate = new Date(Date.now() + expiresInWeek * 1000)
+                return res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate}).status(200).json({success})
             }
             else{
                 return next(errorHandler(500, "Something went wrong"))
