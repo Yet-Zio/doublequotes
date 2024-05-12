@@ -4,6 +4,7 @@ import { CheckFat, Eye, EyeSlash, WarningCircle } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Tooltip } from 'react-tooltip'
+import { APIURL } from "../../constants";
 
 export default function Login() {
 
@@ -21,7 +22,7 @@ export default function Login() {
   const [unameExists, setUnameExists] = useState(false)
   const [unameTooltip, setUnameTooltip] = useState("")
 
-  const API = "http://localhost:3000/api/auth"
+  const API = `${APIURL}/api/auth`
 
   const handleGoogleSigninResponse = (response: any) => {
     console.log("Encoded JWT:", response.credential)
