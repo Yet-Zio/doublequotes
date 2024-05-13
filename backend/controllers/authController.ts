@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { sendVerificationMail } from "../services/mailSender";
 import jwt from "jsonwebtoken"
 import { isFakeEmail } from "fakefilter";
-import { isEmail, matches, isLength} from "validator";
+import { isEmail, matches, isLength, contains} from "validator";
 
 export const checkemail = async(req: Request, res: Response, next: NextFunction) => {
     try{
@@ -68,6 +68,43 @@ export const checkuname = async(req: Request, res: Response, next: NextFunction)
             }
             else{
                 return res.status(409).json({res: "INVALID_USERNAME_FORMAT", success: false})
+            }
+        }
+        else{
+            return next(errorHandler(400, "Invalid credential format"))
+        }
+    }
+    catch(err){
+        return next(errorHandler)
+    }
+}
+
+export const checkpassword = async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { password } : AuthBody = req.body
+        if(password){
+            const passcriteria = [
+                'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                'abcdefghijklmnopqrstuvwxyz',
+                '0123456789',
+                '!@#$%^&*()_+-=[]{}|\\:;\"\'<>,.?/'
+            ]
+
+            if(isLength(password, {min: 8, max: 256})){
+                if(passcriteria.every(chars => contains(password, chars))){
+                    if(req.route.path === "/checkpassword"){
+                        return res.status(200).json({res: "VALID_PASSWORD", success: true})
+                    }
+                    else{
+                        next()
+                    }
+                }
+                else{
+                    return res.status(409).json({res: "PW_CRITERIA_FAILURE", success: false})
+                }
+            }
+            else{
+                return res.status(409).json({res: "PW_LENGTH_INVALID", success: false})
             }
         }
         else{
