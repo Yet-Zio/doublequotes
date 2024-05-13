@@ -15,7 +15,7 @@ export default function Login() {
 
   const [emailFocused, setEmailFocused] = useState(false)
   const [unameFocused, setUnameFocused] = useState(false)
-  const [signupDetails, setSignupDetails] = useState({id: "", uname: "", password: ""})
+  const [signupDetails, setSignupDetails] = useState({email: "", uname: "", password: ""})
 
   const [emailExists, setEmailExists] = useState(false)
   const [emailTooltip, setEmailTooltip] = useState("")
@@ -60,8 +60,8 @@ export default function Login() {
 
   const checkMailExists = async () => {
     const mailAPI = `${API}/checkemail`
-    axios.post(mailAPI, {
-      email: signupDetails.id
+    await axios.post(mailAPI, {
+      email: signupDetails.email
     }, {
       headers: {
         'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ export default function Login() {
 
   const checkUnameExists = async () => {
     const unameAPI = `${API}/checkuname`
-    axios.post(unameAPI, {
+    await axios.post(unameAPI, {
       uname: signupDetails.uname
     }, {
       headers: {
@@ -127,12 +127,36 @@ export default function Login() {
     })
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if(isLogin){
-
+      await axios.post(`${API}/login`, {
+        identifer: loginDetails.id,
+        password: loginDetails.password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(res => {
+        console.log("Login success")
+      }).catch(err => {
+        console.log("Signup failed")
+      })
     }
     else{
+      await axios.post(`${API}/signup`, {
+        uname: signupDetails.uname,
+        email: signupDetails.email,
+        password: signupDetails.password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(res => {
+        console.log("Signup success")
+      }).catch(err => {
+        console.log("Signup failed")
+      })
     }
     console.log("form event handled")
   }
@@ -155,8 +179,8 @@ export default function Login() {
            : (
             <>
             <div className={`flex mt-5 ms-5 me-5 rounded-3xl items-center  text-gray-400 placeholder-gray-400 hover:bg-[#3e4535]/50 ${emailFocused ? "bg-[#3e4535]/50" : "bg-[#3e4535]/25"}`}>
-              <input value={signupDetails.id} onChange={(e) => {setSignupDetails({...signupDetails, id: e.target.value})}} type="text" className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0" placeholder="Email *" required onFocus={() => setEmailFocused(!emailFocused)} onBlur={() => {setEmailFocused(!emailFocused); checkMailExists()}}/>
-              {signupDetails.id && (
+              <input value={signupDetails.email} onChange={(e) => {setSignupDetails({...signupDetails, email: e.target.value})}} type="text" className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0" placeholder="Email *" required onFocus={() => setEmailFocused(!emailFocused)} onBlur={() => {setEmailFocused(!emailFocused); checkMailExists()}}/>
+              {signupDetails.email && (
                 !emailExists ? (<><CheckFat size={16} weight="fill" className="me-5 text-[#A9A74F]" data-tooltip-id="emailTooltip" data-tooltip-content={emailTooltip}/>
                 <Tooltip id="emailTooltip" style={{backgroundColor: "rgb(169, 167, 79)"}}/></>)
                : (<><WarningCircle size={24} weight="fill" className="me-5 text-rose-500" data-tooltip-id="emailTooltip" data-tooltip-content={emailTooltip}/>
@@ -191,7 +215,7 @@ export default function Login() {
           {isLogin ? (
             <button disabled={loginDetails.id === "" || loginDetails.password === ""} className={`mt-2 p-3 ps-7 pe-7 rounded-full font-semibold ${loginDetails.id !== "" && loginDetails.password !== "" ? "bg-[#A9A74F] hover:bg-[#A9A74F]/75" : "bg-[#3e4535]/10 text-[#3e4535]/45 cursor-default"}`}>Login</button>
           ) : (
-            <button disabled={signupDetails.id === "" || signupDetails.uname === "" || signupDetails.password === ""} className={`mt-2 p-3 ps-7 pe-7 rounded-full font-semibold ${signupDetails.id !== "" && signupDetails.uname !== "" && signupDetails.password !== "" ? "bg-[#A9A74F] hover:bg-[#A9A74F]/75" : "bg-[#3e4535]/10 text-[#3e4535]/45 cursor-default"}`}>Sign Up</button>
+            <button disabled={signupDetails.email === "" || signupDetails.uname === "" || signupDetails.password === ""} className={`mt-2 p-3 ps-7 pe-7 rounded-full font-semibold ${signupDetails.email !== "" && signupDetails.uname !== "" && signupDetails.password !== "" ? "bg-[#A9A74F] hover:bg-[#A9A74F]/75" : "bg-[#3e4535]/10 text-[#3e4535]/45 cursor-default"}`}>Sign Up</button>
           )}
           </div>
       </form>

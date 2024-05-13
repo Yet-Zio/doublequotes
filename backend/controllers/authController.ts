@@ -8,38 +8,102 @@ import { sendVerificationMail } from "../services/mailSender";
 import jwt from "jsonwebtoken"
 import { isFakeEmail } from "fakefilter";
 import { isEmail, matches, isLength} from "validator";
+
+export const checkemail = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { email } : AuthBody = req.body
+
+        if(email){
+            if(isEmail(email)){
+                const user = await User.findOne({email: email})
+                if(user){
+                    return res.status(409).json({res: "EMAIL_ALREADY_EXISTS", success: false})
+                }
+                else{
+                    if(isFakeEmail(email)){
+                        return res.status(409).json({res: "TEMP_MAIL_DETECTED", success: false})
+                    }
+                    else{
+                        if (req.route.path === "/checkemail") {
+                            return res.status(200).json({res: "NEW_VALID_EMAIL", success: true})
+                        }
+                        else{
+                            next()
+                        }
+                    }
+                }
+            }
+            else{
+                return res.status(409).json({res: "NOT_AN_EMAIL", success: false})
+            }
+        }
+        else{
+            return next(errorHandler(400, "Invalid credential format"))
+        }
+    }
+    catch(err){
+        return next(errorHandler)
+    }
+}
+
+export const checkuname = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { uname } : AuthBody = req.body
+
+        if(uname){
+            if(matches(uname, "^[a-zA-Z0-9_\.\-]*$") && isLength(uname, {min: 3, max: 20})){
+                const user = await User.findOne({uname: uname})
+
+                if(user){
+                    return res.status(409).json({res: "UNAME_ALREADY_EXISTS", success: false})
+                }
+                else{
+                    if (req.route.path === "/checkuname") {
+                        return res.status(200).json({res: "NEW_VALID_USERNAME", success: true})
+                    }
+                    else{
+                        next()
+                    }
+                }
+            }
+            else{
+                return res.status(409).json({res: "INVALID_USERNAME_FORMAT", success: false})
+            }
+        }
+        else{
+            return next(errorHandler(400, "Invalid credential format"))
+        }
+    }
+    catch(err){
+        return next(errorHandler)
+    }
+}
+
 export const signup = async (req: Request, res: Response, next: NextFunction) => {
     try{
         const { uname, email, password }: AuthBody = req.body
 
         if(uname && email && password){
-            const unameCheck = await User.findOne({uname})
-            const emailCheck = await User.findOne({email})
-            if(!(unameCheck || emailCheck)){
-                if(isFakeEmail(email)){
-                    return next(errorHandler(400, "Sorry, temporary or disposable emails are not allowed!"))
-                }
+            await checkemail(req, res, async () => {
+                await checkuname(req, res, async () => {
+                    const hashPass = await argon2.hash(password)
 
-                const hashPass = await argon2.hash(password)
+                    const uuid = uuidv4()
 
-                const uuid = uuidv4()
+                    const newuser = await User.create({uname, email, password: hashPass, uuid})
 
-                const newuser = await User.create({uname, email, password: hashPass, uuid})
+                    sendVerificationMail(uuid, email)
 
-                sendVerificationMail(uuid, email)
+                    let payload = {
+                        id: newuser.id
+                    }
 
-                let payload = {
-                    id: newuser.id
-                }
-
-                const expiresInWeek = 7 * 24 * 60 * 60;
-                const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: expiresInWeek})
-                const expiryDate = new Date(Date.now() + expiresInWeek * 1000)
-                return res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate}).status(200).json({success : true})
-            }
-            else{
-                return next(errorHandler(409, "User already exists!"))
-            }
+                    const expiresInWeek = 7 * 24 * 60 * 60;
+                    const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: expiresInWeek})
+                    const expiryDate = new Date(Date.now() + expiresInWeek * 1000)
+                    return res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate}).status(200).json({success : true})
+                })
+            })
         }
         else{
             return next(errorHandler(400, "Invalid credential format"))
@@ -87,66 +151,6 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
             }
             else{
                 return next(errorHandler(500, "Something went wrong"))
-            }
-        }
-        else{
-            return next(errorHandler(400, "Invalid credential format"))
-        }
-    }
-    catch(err){
-        return next(errorHandler)
-    }
-}
-
-export const checkemail = async(req: Request, res: Response, next: NextFunction) => {
-    try{
-        const { email } : AuthBody = req.body
-
-        if(email){
-            if(isEmail(email)){
-                const user = await User.findOne({email: email})
-                if(user){
-                    return res.status(409).json({res: "EMAIL_ALREADY_EXISTS", success: false})
-                }
-                else{
-                    if(isFakeEmail(email)){
-                        return res.status(409).json({res: "TEMP_MAIL_DETECTED", success: false})
-                    }
-                    else{
-                        return res.status(200).json({res: "NEW_VALID_EMAIL", success: true})
-                    }
-                }
-            }
-            else{
-                return res.status(409).json({res: "NOT_AN_EMAIL", success: false})
-            }
-        }
-        else{
-            return next(errorHandler(400, "Invalid credential format"))
-        }
-    }
-    catch(err){
-        return next(errorHandler)
-    }
-}
-
-export const checkuname = async(req: Request, res: Response, next: NextFunction) => {
-    try{
-        const { uname } : AuthBody = req.body
-
-        if(uname){
-            if(matches(uname, "^[a-zA-Z0-9_\.\-]*$") && isLength(uname, {min: 3, max: 20})){
-                const user = await User.findOne({uname: uname})
-
-                if(user){
-                    return res.status(409).json({res: "UNAME_ALREADY_EXISTS", success: false})
-                }
-                else{
-                    return res.status(200).json({res: "NEW_VALID_USERNAME", success: true})
-                }
-            }
-            else{
-                return res.status(409).json({res: "INVALID_USERNAME_FORMAT", success: false})
             }
         }
         else{
