@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { sendVerificationMail } from "../services/mailSender";
 import jwt from "jsonwebtoken"
 import { isFakeEmail } from "fakefilter";
-import { isEmail, matches, isLength, contains} from "validator";
+import { isEmail, matches, isLength } from "validator";
 
 export const checkemail = async(req: Request, res: Response, next: NextFunction) => {
     try{
@@ -91,7 +91,9 @@ export const checkpassword = async (req: Request, res: Response, next: NextFunct
             ]
 
             if(isLength(password, {min: 8, max: 256})){
-                if(passcriteria.every(chars => contains(password, chars))){
+                if(passcriteria.every(chars => {
+                    return chars.split('').some(char => {return password.includes(char)})
+                })){
                     if(req.route.path === "/checkpassword"){
                         return res.status(200).json({res: "VALID_PASSWORD", success: true})
                     }
@@ -120,31 +122,27 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
     try{
         const { uname, email, password }: AuthBody = req.body
 
-        if(uname && email && password){
-            await checkemail(req, res, async () => {
-                await checkuname(req, res, async () => {
+        await checkemail(req, res, async () => {
+            await checkuname(req, res, async() => {
+                await checkpassword(req, res, async () => {
                     const hashPass = await argon2.hash(password)
-
+                    
                     const uuid = uuidv4()
-
+                    
                     const newuser = await User.create({uname, email, password: hashPass, uuid})
-
-                    sendVerificationMail(uuid, email)
-
+                    
+                    sendVerificationMail(uuid, email!)
+                    
                     let payload = {
                         id: newuser.id
                     }
-
                     const expiresInWeek = 7 * 24 * 60 * 60;
                     const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: expiresInWeek})
                     const expiryDate = new Date(Date.now() + expiresInWeek * 1000)
                     return res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate}).status(200).json({success : true})
                 })
             })
-        }
-        else{
-            return next(errorHandler(400, "Invalid credential format"))
-        }
+        })
     }
     catch(err){
         return next(errorHandler)
