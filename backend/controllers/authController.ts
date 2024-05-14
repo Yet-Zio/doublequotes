@@ -120,11 +120,11 @@ export const checkpassword = async (req: Request, res: Response, next: NextFunct
 
 export const signup = async (req: Request, res: Response, next: NextFunction) => {
     try{
-        const { uname, email, password }: AuthBody = req.body
-
         await checkemail(req, res, async () => {
             await checkuname(req, res, async() => {
                 await checkpassword(req, res, async () => {
+                    const { uname, email, password }: AuthBody = req.body
+                    
                     const hashPass = await argon2.hash(password)
                     
                     const uuid = uuidv4()
