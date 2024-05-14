@@ -21,6 +21,8 @@ export default function Login() {
   const [emailTooltip, setEmailTooltip] = useState("")
   const [unameExists, setUnameExists] = useState(false)
   const [unameTooltip, setUnameTooltip] = useState("")
+  const [invalidPassword, setInvalidPassword] = useState(false)
+  const [passwordTooltip, setPassTooltip] = useState("")
 
   const API = `${APIURL}/api/auth`
 
@@ -127,6 +129,40 @@ export default function Login() {
     })
   }
 
+  const validatePassword = async() => {
+    const passAPI = `${API}/checkpassword`
+
+    await axios.post(passAPI, {
+      password: signupDetails.password
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      console.log(response)
+      setInvalidPassword(false)
+
+      if(response.data.res === "VALID_PASSWORD"){
+        setPassTooltip("Entered password satisfies best practices")
+      }
+
+    }).catch(err => {
+      console.log(err)
+      setInvalidPassword(true)
+
+      const res: string = err.response.data.res
+      if(res === "PW_CRITERIA_FAILURE"){
+        setPassTooltip("Passwords must contain uppercase and lowercase characters and should also include numbers and special symbols like !@#$%^&*()_+-=[]{}|\\:;\"\'<>,.?/")
+      }
+      else if(res === "PW_LENGTH_INVALID"){
+        setPassTooltip("Passwords should be a minimum length of 8 characters. The maximum is 256 characters.")
+      }
+      else{
+        setPassTooltip("Invalid format!")
+      }
+    })
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if(isLogin){
@@ -197,9 +233,15 @@ export default function Login() {
                )}
             </div>
             <div className={`flex mt-5 ms-5 me-5 rounded-3xl items-center  text-gray-400 placeholder-gray-400 hover:bg-[#3e4535]/50 ${passFocused ? "bg-[#3e4535]/50" : "bg-[#3e4535]/25"}`}>
-              <input value={signupDetails.password} onChange={(e) => {setSignupDetails({...signupDetails, password: e.target.value})}} type={passHidden ? "password" : "text"} className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0" placeholder="Password *" required onFocus={() => setPassFocused(!passFocused)} onBlur={() => setPassFocused(!passFocused)}/>
+              <input value={signupDetails.password} onChange={(e) => {setSignupDetails({...signupDetails, password: e.target.value})}} type={passHidden ? "password" : "text"} className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0" placeholder="Password *" required onFocus={() => setPassFocused(!passFocused)} onBlur={() => {setPassFocused(!passFocused); validatePassword()}}/>
               {passHidden ? <EyeSlash size={24} onClick={() => setPassHidden(!passHidden)} className="me-5"/> :
               <Eye size={24} onClick={() => setPassHidden(!passHidden)} className="me-5"/>}
+              {signupDetails.password && (
+                !invalidPassword ? (<><CheckFat size={16} weight="fill" className="me-5 text-[#A9A74F]" data-tooltip-id="passTooltip" data-tooltip-content={passwordTooltip}/>
+                <Tooltip id="passTooltip" style={{backgroundColor: "rgb(169, 167, 79)"}}/></>)
+               : (<><WarningCircle size={24} weight="fill" className="me-5 text-rose-500" data-tooltip-id="passTooltip" data-tooltip-content={passwordTooltip}/>
+               <Tooltip id="passTooltip" style={{backgroundColor: "rgb(159, 18, 57)"}}/></>)
+               )}
             </div>
             </>
            )}
