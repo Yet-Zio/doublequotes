@@ -8,7 +8,7 @@ import {motion, AnimatePresence} from "framer-motion"
 import { CaretDown, XCircle } from "@phosphor-icons/react"
 import { useState } from "react"
 
-export default function PopupBox({type, message, moreinfo, closebt, setSignupProcess} : PopupBoxProps) {
+export default function PopupBox({type, message, moreinfo, closebt, setSignupProcess, setLoginProcess} : PopupBoxProps) {
 
   const [showPopup, setShowPopup] = useState(true)
   const [expandInfo, setExpandInfo] = useState(false)
@@ -36,7 +36,7 @@ export default function PopupBox({type, message, moreinfo, closebt, setSignupPro
         initial={{opacity: 0}}
         animate={{opacity: 1}}
         transition={{duration: 1}}
-         className="mt-3 text-lg inter font-semibold">{message}</motion.span>)
+         className={`mt-3 ${setLoginProcess ? "text-2xl" : "text-lg"} inter font-semibold`}>{message}</motion.span>)
     }
   }
 
@@ -100,6 +100,9 @@ export default function PopupBox({type, message, moreinfo, closebt, setSignupPro
                 <XCircle size={32} weight="fill" className="cursor-pointer text-[#a84b4b] hover:text-[#a84b4b]/75" onClick={() => {setShowPopup(!showPopup)
                   if(setSignupProcess){
                     setSignupProcess({start: false, success: false, done: false, signupres: ""})
+                  }
+                  else if(setLoginProcess){
+                    setLoginProcess({start: false, success: false, done: false, loginres: ""})
                   }
                 }}/>
               </div>

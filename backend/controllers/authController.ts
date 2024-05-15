@@ -164,18 +164,18 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
             if(unameUser){
                 const isPasswordValid = await argon2.verify(unameUser.password, password)
-                if(!isPasswordValid) return next(errorHandler(401, "Invalid Password!"))
+                if(!isPasswordValid) return next(errorHandler(401, "INVALID_PASSWORD"))
                 payload.id = unameUser.id
                 success = true
             }
             else if(emailUser){
                 const isPasswordValid = await argon2.verify(emailUser.password, password)
-                if(!isPasswordValid) return next(errorHandler(401, "Invalid Password!"))
+                if(!isPasswordValid) return next(errorHandler(401, "INVALID_PASSWORD"))
                 payload.id = emailUser.id
                 success = true
             }
             else{
-                return next(errorHandler(404, "User not found!"))
+                return next(errorHandler(404, "USER_NOT_FOUND"))
             }
 
             if(success){

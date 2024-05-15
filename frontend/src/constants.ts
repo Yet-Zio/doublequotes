@@ -2,6 +2,8 @@ export const STARTQUOTE = "“"
 export const ENDQUOTE = "”"
 export const APIURL = "http://localhost:3000"
 
+// SIGNUP
+
 export const NOT_AN_EMAIL = "NOT_AN_EMAIL"
 export const EMAIL_ALREADY_EXISTS = "EMAIL_ALREADY_EXISTS"
 export const TEMP_MAIL_DETECTED = "TEMP_MAIL_DETECTED"
@@ -21,3 +23,11 @@ export const AccUnameAlreadyExists = "An account with this username already exis
 
 export const PassCriteriaFailureText = "Passwords must contain uppercase and lowercase characters and should also include numbers and special symbols like !@#$%^&*()_+-=[]{}|\\:;\"'<>.,.?/";
 export const PassLengthFailureText = "Passwords should be a minimum length of 8 characters. The maximum is 256 characters."
+
+// LOGIN
+
+export const INVALID_PASSWORD = "INVALID_PASSWORD"
+export const USER_NOT_FOUND = "USER_NOT_FOUND"
+
+export const InvalidPassText = "Password entered was not correct."
+export const UserNotFoundText = "An user associated with this email or username was not found!"

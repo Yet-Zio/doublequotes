@@ -12,7 +12,11 @@ import { APIURL, NOT_AN_EMAIL, EMAIL_ALREADY_EXISTS, TEMP_MAIL_DETECTED, INVALID
   InvalidUnameText,
   AccUnameAlreadyExists,
   PassCriteriaFailureText,
-  PassLengthFailureText
+  PassLengthFailureText,
+  USER_NOT_FOUND,
+  InvalidPassText,
+  UserNotFoundText,
+  INVALID_PASSWORD
 } from "../../constants";
 import PopupBox from "../../components/modals/PopupBox";
 
@@ -35,6 +39,7 @@ export default function Login() {
   const [passwordTooltip, setPassTooltip] = useState("")
 
   const [signupProcess, setSignupProcess] = useState({start: false, success: false, done: false, signupres: ""})
+  const [loginProcess, setLoginProcess] = useState({start: false, success: false, done: false, loginres: ""})
 
   const renderSignupProgress = () => {
     if(signupProcess.done){
@@ -59,6 +64,27 @@ export default function Login() {
             return <PopupBox type="error" message="Account creation failed!" moreinfo={PassLengthFailureText} closebt setSignupProcess={setSignupProcess}/>
           default:
             return <PopupBox type="error" message="Account creation failed!" moreinfo="Something went wrong or invalid format found" closebt setSignupProcess={setSignupProcess}/>
+        }
+      }
+    }
+    else{
+      return <PopupBox type="loading"/>
+    }
+  }
+
+  const renderLoginProgress = () => {
+    if(loginProcess.done){
+      if(loginProcess.success){
+        return <PopupBox type="loading" message="Logged in successfully. Redirecting..."/>
+      }
+      else{
+        switch(loginProcess.loginres){
+          case USER_NOT_FOUND:
+            return <PopupBox type="error" message="Login failed!" moreinfo={UserNotFoundText} closebt setLoginProcess={setLoginProcess}/>
+          case INVALID_PASSWORD:
+            return <PopupBox type="error" message="Login failed!" moreinfo={InvalidPassText} closebt setLoginProcess={setLoginProcess}/>
+          default:
+            return <PopupBox type="error" message="Login failed!" moreinfo="Something went wrong or invalid format found" closebt setLoginProcess={setLoginProcess}/>
         }
       }
     }
@@ -209,6 +235,10 @@ export default function Login() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (isLogin) {
+      setLoginProcess({
+        ...loginProcess,
+        start: true
+      })
         await axios.post(`${API}/login`, {
             identifier: loginDetails.id,
             password: loginDetails.password
@@ -218,9 +248,22 @@ export default function Login() {
             }
         })
         .then(res => {
+          setLoginProcess({
+            ...loginProcess,
+            start: true,
+            success: true,
+            done: true
+          })
             console.log("Login success");
         })
         .catch(err => {
+          setLoginProcess({
+            ...loginProcess,
+            start: true,
+            success: false,
+            done: true,
+            loginres: err.response.data.message
+          })
             console.log("Login failed");
         })
     } else {
@@ -264,6 +307,9 @@ export default function Login() {
     <div className="flex min-w-screen min-h-screen justify-center items-center">
       {signupProcess.start && (
         renderSignupProgress()
+      )}
+      {loginProcess.start && (
+        renderLoginProgress()
       )}
       <div className="flex w-full h-full select-none">
         <Doodle/>

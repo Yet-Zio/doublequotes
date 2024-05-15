@@ -76,4 +76,5 @@ interface PopupBoxProps{
     moreinfo?: string
     closebt?: boolean
     setSignupProcess?: Function
+    setLoginProcess?: Function
 }
