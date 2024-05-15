@@ -4,7 +4,16 @@ import { CheckFat, Eye, EyeSlash, WarningCircle } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Tooltip } from 'react-tooltip'
-import { APIURL } from "../../constants";
+import { APIURL, NOT_AN_EMAIL, EMAIL_ALREADY_EXISTS, TEMP_MAIL_DETECTED, INVALID_USERNAME_FORMAT, UNAME_ALREADY_EXISTS,
+  PW_CRITERIA_FAILURE, PW_LENGTH_INVALID,
+  NotAnEmailText,
+  AccEmailAlreadyExists,
+  DisposableMailsNotAllowed,
+  InvalidUnameText,
+  AccUnameAlreadyExists,
+  PassCriteriaFailureText,
+  PassLengthFailureText
+} from "../../constants";
 import PopupBox from "../../components/modals/PopupBox";
 
 export default function Login() {
@@ -24,6 +33,39 @@ export default function Login() {
   const [unameTooltip, setUnameTooltip] = useState("")
   const [invalidPassword, setInvalidPassword] = useState(false)
   const [passwordTooltip, setPassTooltip] = useState("")
+
+  const [signupProcess, setSignupProcess] = useState({start: false, success: false, done: false, signupres: ""})
+
+  const renderSignupProgress = () => {
+    if(signupProcess.done){
+      if(signupProcess.success){
+        return <PopupBox type="success" message="Account created successfully!"/>
+      }
+      else{
+        switch(signupProcess.signupres){
+          case NOT_AN_EMAIL:
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={NotAnEmailText}/>
+          case EMAIL_ALREADY_EXISTS:
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={AccEmailAlreadyExists}/>
+          case TEMP_MAIL_DETECTED:
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={DisposableMailsNotAllowed}/>
+          case INVALID_USERNAME_FORMAT:
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={InvalidUnameText}/>
+          case UNAME_ALREADY_EXISTS:
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={AccUnameAlreadyExists}/>
+          case PW_CRITERIA_FAILURE:
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={PassCriteriaFailureText}/>
+          case PW_LENGTH_INVALID:
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={PassLengthFailureText}/>
+          default:
+            return <PopupBox type="error" message="Account creation failed!" moreinfo="Something went wrong or invalid format found"/>
+        }
+      }
+    }
+    else{
+      return <PopupBox type="loading"/>
+    }
+  }
 
   const API = `${APIURL}/api/auth`
 
@@ -82,14 +124,14 @@ export default function Login() {
       setEmailExists(true)
 
       const res: string = err.response.data.res
-      if(res === "NOT_AN_EMAIL"){
-        setEmailTooltip("Invalid email format.")
+      if(res === NOT_AN_EMAIL){
+        setEmailTooltip(NotAnEmailText)
       }
-      else if(res === "EMAIL_ALREADY_EXISTS"){
-        setEmailTooltip("An account with this email already exists.")
+      else if(res === EMAIL_ALREADY_EXISTS){
+        setEmailTooltip(AccEmailAlreadyExists)
       }
-      else if(res === "TEMP_MAIL_DETECTED"){
-        setEmailTooltip("Disposable emails are not allowed!")
+      else if(res === TEMP_MAIL_DETECTED){
+        setEmailTooltip(DisposableMailsNotAllowed)
       }
       else{
         setEmailTooltip("Invalid format!")
@@ -118,11 +160,11 @@ export default function Login() {
       setUnameExists(true)
 
       const res: string = err.response.data.res
-      if(res === "INVALID_USERNAME_FORMAT"){
-        setUnameTooltip("Usernames can only contain letters, numbers, underscores, dashes and dots. Usernames should be 3-20 characters in length.")
+      if(res === INVALID_USERNAME_FORMAT){
+        setUnameTooltip(InvalidUnameText)
       }
-      else if(res === "UNAME_ALREADY_EXISTS"){
-        setUnameTooltip("An account with this username already exists.")
+      else if(res === UNAME_ALREADY_EXISTS){
+        setUnameTooltip(AccUnameAlreadyExists)
       }
       else{
         setUnameTooltip("Invalid format!")
@@ -152,11 +194,11 @@ export default function Login() {
       setInvalidPassword(true)
 
       const res: string = err.response.data.res
-      if(res === "PW_CRITERIA_FAILURE"){
-        setPassTooltip("Passwords must contain uppercase and lowercase characters and should also include numbers and special symbols like !@#$%^&*()_+-=[]{}|\\:;\"\'<>,.?/")
+      if(res === PW_CRITERIA_FAILURE){
+        setPassTooltip(PassCriteriaFailureText)
       }
-      else if(res === "PW_LENGTH_INVALID"){
-        setPassTooltip("Passwords should be a minimum length of 8 characters. The maximum is 256 characters.")
+      else if(res === PW_LENGTH_INVALID){
+        setPassTooltip(PassLengthFailureText)
       }
       else{
         setPassTooltip("Invalid format!")
@@ -166,40 +208,63 @@ export default function Login() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    if(isLogin){
-      await axios.post(`${API}/login`, {
-        identifer: loginDetails.id,
-        password: loginDetails.password
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(res => {
-        console.log("Login success")
-      }).catch(err => {
-        console.log("Signup failed")
-      })
+    if (isLogin) {
+        await axios.post(`${API}/login`, {
+            identifier: loginDetails.id,
+            password: loginDetails.password
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            console.log("Login success");
+        })
+        .catch(err => {
+            console.log("Login failed");
+        })
+    } else {
+        setSignupProcess({
+            ...signupProcess,
+            start: true
+        })
+        await axios.post(`${API}/signup`, {
+            uname: signupDetails.uname,
+            email: signupDetails.email,
+            password: signupDetails.password
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            setSignupProcess({
+                ...signupProcess,
+                start: true,
+                success: true,
+                done: true,
+            })
+            console.log("Signup success")
+        })
+        .catch(err => {
+            setSignupProcess({
+                ...signupProcess,
+                start: true,
+                success: false,
+                done: true,
+                signupres: err.response.data.res
+            })
+            console.log("Signup failed")
+        })
     }
-    else{
-      await axios.post(`${API}/signup`, {
-        uname: signupDetails.uname,
-        email: signupDetails.email,
-        password: signupDetails.password
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(res => {
-        console.log("Signup success")
-      }).catch(err => {
-        console.log("Signup failed")
-      })
-    }
-    console.log("form event handled")
+    console.log("Form event handled")
   }
 
   return (
     <div className="flex min-w-screen min-h-screen justify-center items-center">
+      {signupProcess.start && (
+        renderSignupProgress()
+      )}
       <div className="flex w-full h-full select-none">
         <Doodle/>
       </div>
@@ -262,7 +327,6 @@ export default function Login() {
           )}
           </div>
       </form>
-      <PopupBox type="success" message="hello"/>
     </div>
   );
 }
