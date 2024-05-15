@@ -67,3 +67,11 @@ declare namespace JSX {
       'css-doodle': {}
     }
 }
+
+type PopupBoxType = "success" | "error" | "warning" | "info" | "loading"
+
+interface PopupBoxProps{
+    type: PopupBoxType
+    message: string
+    moreinfo?: string
+}

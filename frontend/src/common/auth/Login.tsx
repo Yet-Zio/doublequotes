@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Tooltip } from 'react-tooltip'
 import { APIURL } from "../../constants";
+import PopupBox from "../../components/modals/PopupBox";
 
 export default function Login() {
 
@@ -261,6 +262,7 @@ export default function Login() {
           )}
           </div>
       </form>
+      <PopupBox type="success" message="hello"/>
     </div>
   );
 }
