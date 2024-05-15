@@ -44,21 +44,21 @@ export default function Login() {
       else{
         switch(signupProcess.signupres){
           case NOT_AN_EMAIL:
-            return <PopupBox type="error" message="Account creation failed!" moreinfo={NotAnEmailText}/>
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={NotAnEmailText} closebt setSignupProcess={setSignupProcess}/>
           case EMAIL_ALREADY_EXISTS:
-            return <PopupBox type="error" message="Account creation failed!" moreinfo={AccEmailAlreadyExists}/>
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={AccEmailAlreadyExists} closebt setSignupProcess={setSignupProcess}/>
           case TEMP_MAIL_DETECTED:
-            return <PopupBox type="error" message="Account creation failed!" moreinfo={DisposableMailsNotAllowed}/>
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={DisposableMailsNotAllowed} closebt setSignupProcess={setSignupProcess}/>
           case INVALID_USERNAME_FORMAT:
-            return <PopupBox type="error" message="Account creation failed!" moreinfo={InvalidUnameText}/>
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={InvalidUnameText} closebt setSignupProcess={setSignupProcess}/>
           case UNAME_ALREADY_EXISTS:
-            return <PopupBox type="error" message="Account creation failed!" moreinfo={AccUnameAlreadyExists}/>
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={AccUnameAlreadyExists} closebt setSignupProcess={setSignupProcess}/>
           case PW_CRITERIA_FAILURE:
-            return <PopupBox type="error" message="Account creation failed!" moreinfo={PassCriteriaFailureText}/>
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={PassCriteriaFailureText} closebt setSignupProcess={setSignupProcess}/>
           case PW_LENGTH_INVALID:
-            return <PopupBox type="error" message="Account creation failed!" moreinfo={PassLengthFailureText}/>
+            return <PopupBox type="error" message="Account creation failed!" moreinfo={PassLengthFailureText} closebt setSignupProcess={setSignupProcess}/>
           default:
-            return <PopupBox type="error" message="Account creation failed!" moreinfo="Something went wrong or invalid format found"/>
+            return <PopupBox type="error" message="Account creation failed!" moreinfo="Something went wrong or invalid format found" closebt setSignupProcess={setSignupProcess}/>
         }
       }
     }
@@ -265,7 +265,6 @@ export default function Login() {
       {signupProcess.start && (
         renderSignupProgress()
       )}
-      <PopupBox type="error" closebt={true}/>
       <div className="flex w-full h-full select-none">
         <Doodle/>
       </div>

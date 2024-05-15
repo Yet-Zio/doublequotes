@@ -8,7 +8,7 @@ import {motion, AnimatePresence} from "framer-motion"
 import { CaretDown, XCircle } from "@phosphor-icons/react"
 import { useState } from "react"
 
-export default function PopupBox({type, message, moreinfo, closebt} : PopupBoxProps) {
+export default function PopupBox({type, message, moreinfo, closebt, setSignupProcess} : PopupBoxProps) {
 
   const [showPopup, setShowPopup] = useState(true)
   const [expandInfo, setExpandInfo] = useState(false)
@@ -87,15 +87,21 @@ export default function PopupBox({type, message, moreinfo, closebt} : PopupBoxPr
         <motion.div 
         initial={{opacity: 0}}
         animate={{opacity: 1}}
+        exit={{opacity: 0}}
         className="flex w-screen h-screen justify-center items-center absolute z-10 bg-[#1a1e15]/45">
           <motion.div
           variants={popupVariants}
           initial="hidden"
           animate="visible"
+          exit="hidden"
            className="flex flex-col relative justify-center items-center z-20 bg-[#242a1d] rounded-2xl p-2">
             {closebt && (
               <div className="absolute top-0 right-0 mt-2 mr-2">
-                <XCircle size={32} weight="fill" className="cursor-pointer text-[#7d3b3b] hover:text-[#7d3b3b]/75" onClick={() => {setShowPopup(!showPopup)}}/>
+                <XCircle size={32} weight="fill" className="cursor-pointer text-[#a84b4b] hover:text-[#a84b4b]/75" onClick={() => {setShowPopup(!showPopup)
+                  if(setSignupProcess){
+                    setSignupProcess({start: false, success: false, done: false, signupres: ""})
+                  }
+                }}/>
               </div>
             )}
             {renderPopupIcon()}
