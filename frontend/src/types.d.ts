@@ -74,4 +74,5 @@ interface PopupBoxProps{
     type: PopupBoxType
     message?: string
     moreinfo?: string
+    closebt?: boolean
 }

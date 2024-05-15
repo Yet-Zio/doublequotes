@@ -265,6 +265,7 @@ export default function Login() {
       {signupProcess.start && (
         renderSignupProgress()
       )}
+      <PopupBox type="error" closebt={true}/>
       <div className="flex w-full h-full select-none">
         <Doodle/>
       </div>

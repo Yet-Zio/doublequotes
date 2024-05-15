@@ -5,11 +5,12 @@ import WarningAnimation from "../../assets/Warning.json"
 import InfoAnimation from "../../assets/Info.json"
 import LoadingAnimation from "../../assets/Loading.json"
 import {motion, AnimatePresence} from "framer-motion"
-import { CaretDown } from "@phosphor-icons/react"
+import { CaretDown, XCircle } from "@phosphor-icons/react"
 import { useState } from "react"
 
-export default function PopupBox({type, message, moreinfo} : PopupBoxProps) {
+export default function PopupBox({type, message, moreinfo, closebt} : PopupBoxProps) {
 
+  const [showPopup, setShowPopup] = useState(true)
   const [expandInfo, setExpandInfo] = useState(false)
 
   const renderPopupIcon = () => {
@@ -82,20 +83,27 @@ export default function PopupBox({type, message, moreinfo} : PopupBoxProps) {
 
   return (
     <AnimatePresence>
-      <motion.div 
-      initial={{opacity: 0}}
-      animate={{opacity: 1}}
-      className="flex w-screen h-screen justify-center items-center absolute z-10 bg-[#1a1e15]/45">
-        <motion.div
-        variants={popupVariants}
-        initial="hidden"
-        animate="visible"
-         className="flex flex-col justify-center items-center z-20 bg-[#242a1d] rounded-2xl p-2">
-          {renderPopupIcon()}
-          {renderTitle()}
-          {renderMoreInfo()}
+      {showPopup && (
+        <motion.div 
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+        className="flex w-screen h-screen justify-center items-center absolute z-10 bg-[#1a1e15]/45">
+          <motion.div
+          variants={popupVariants}
+          initial="hidden"
+          animate="visible"
+           className="flex flex-col relative justify-center items-center z-20 bg-[#242a1d] rounded-2xl p-2">
+            {closebt && (
+              <div className="absolute top-0 right-0 mt-2 mr-2">
+                <XCircle size={32} weight="fill" className="cursor-pointer text-[#7d3b3b] hover:text-[#7d3b3b]/75" onClick={() => {setShowPopup(!showPopup)}}/>
+              </div>
+            )}
+            {renderPopupIcon()}
+            {renderTitle()}
+            {renderMoreInfo()}
+          </motion.div>
         </motion.div>
-    </motion.div>
+      )}
     </AnimatePresence>
   )
 }
