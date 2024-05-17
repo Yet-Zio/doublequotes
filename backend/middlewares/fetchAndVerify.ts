@@ -7,19 +7,18 @@ export const fetchAndVerify = async (req: AuthenticatedRequest, res: Response, n
     const token = req.cookies.accessToken
 
     if(!token){
-        next(errorHandler(401, "Unauthorized"))
+        return next(errorHandler(401, "Unauthorized"))
     }
     else{
         jwt.verify(token , process.env.JWT_SECRET as string , (err: any , user: any) => {
-            if(err.name === "TokenExpiredError"){
-                next(errorHandler(401, "Unauthorized: Expired token"))
+            if (err) {
+                if (err.name === "TokenExpiredError") {
+                    return next(errorHandler(401, "Unauthorized: Expired token"));
+                } else {
+                    return next(errorHandler(400, "Invalid token"));
+                }
             }
-            else{
-                next(errorHandler(400, "Invalid token"))
-            }
-    
-            req.user = user; 
-    
+            req.user = user;
             next();
         })
     }
