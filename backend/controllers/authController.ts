@@ -136,10 +136,12 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
                     let payload = {
                         id: newuser.id
                     }
-                    const expiresInWeek = 7 * 24 * 60 * 60;
+                    const expiresInWeek = 28 * 24 * 60 * 60;
                     const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: expiresInWeek})
                     const expiryDate = new Date(Date.now() + expiresInWeek * 1000)
-                    return res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate}).status(200).json({success : true})
+
+                    const {password: pass, __v: v, uuid: uid, ...rest} = (newuser as any)._doc
+                    return res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate}).status(200).json({success : true, ...rest})
                 })
             })
         })
@@ -162,27 +164,36 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
                 id: ""
             }
 
+            let userData
+
             if(unameUser){
                 const isPasswordValid = await argon2.verify(unameUser.password, password)
                 if(!isPasswordValid) return next(errorHandler(401, "INVALID_PASSWORD"))
+
                 payload.id = unameUser.id
                 success = true
+                const {password: pass, __v: v, uuid: uid, ...rest} = (unameUser as any)._doc
+                userData = rest
             }
             else if(emailUser){
                 const isPasswordValid = await argon2.verify(emailUser.password, password)
                 if(!isPasswordValid) return next(errorHandler(401, "INVALID_PASSWORD"))
+
                 payload.id = emailUser.id
                 success = true
+                const {password: pass, __v: v, uuid: uid, ...rest} = (emailUser as any)._doc
+                userData = rest
             }
             else{
                 return next(errorHandler(404, "USER_NOT_FOUND"))
             }
 
             if(success){
-                const expiresInWeek = 7 * 24 * 60 * 60;
+                const expiresInWeek = 28 * 24 * 60 * 60;
                 const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: expiresInWeek})
                 const expiryDate = new Date(Date.now() + expiresInWeek * 1000)
-                return res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate}).status(200).json({success})
+                
+                return res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate}).status(200).json({success, ...userData})
             }
             else{
                 return next(errorHandler(500, "Something went wrong"))

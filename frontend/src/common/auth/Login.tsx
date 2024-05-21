@@ -19,6 +19,8 @@ import { APIURL, NOT_AN_EMAIL, EMAIL_ALREADY_EXISTS, TEMP_MAIL_DETECTED, INVALID
   INVALID_PASSWORD
 } from "../../constants";
 import PopupBox from "../../components/modals/PopupBox";
+import { useDQDispatch } from "../../redux/hooks";
+import { login } from "../../redux/user/userSlice";
 
 export default function Login() {
 
@@ -40,6 +42,8 @@ export default function Login() {
 
   const [signupProcess, setSignupProcess] = useState({start: false, success: false, done: false, signupres: ""})
   const [loginProcess, setLoginProcess] = useState({start: false, success: false, done: false, loginres: ""})
+
+  const dispatch = useDQDispatch()
 
   const renderSignupProgress = () => {
     if(signupProcess.done){
@@ -234,6 +238,7 @@ export default function Login() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    console.log("called: isLOGIN: ", isLogin)
     if (isLogin) {
       setLoginProcess({
         ...loginProcess,
@@ -245,7 +250,8 @@ export default function Login() {
         }, {
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            withCredentials: true
         })
         .then(res => {
           setLoginProcess({
@@ -254,7 +260,7 @@ export default function Login() {
             success: true,
             done: true
           })
-            console.log("Login success");
+            dispatch(login(res.data))
         })
         .catch(err => {
           setLoginProcess({
@@ -264,7 +270,7 @@ export default function Login() {
             done: true,
             loginres: err.response.data.message
           })
-            console.log("Login failed");
+            
         })
     } else {
         setSignupProcess({
@@ -278,7 +284,8 @@ export default function Login() {
         }, {
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            withCredentials: true
         })
         .then(res => {
             setSignupProcess({
@@ -287,7 +294,7 @@ export default function Login() {
                 success: true,
                 done: true,
             })
-            console.log("Signup success")
+            dispatch(login(res.data))
         })
         .catch(err => {
             setSignupProcess({
@@ -297,10 +304,9 @@ export default function Login() {
                 done: true,
                 signupres: err.response.data.res
             })
-            console.log("Signup failed")
+            
         })
     }
-    console.log("Form event handled")
   }
 
   return (
