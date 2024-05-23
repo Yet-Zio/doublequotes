@@ -1,0 +1,24 @@
+services:
+  dbquotes_backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ENV_FILE: ./config/.env.backend
+    ports:
+      - "3000:3000"
+    environment:
+      - IN_DOCKER=true
+      - DOCKER_MONGOURI=mongodb://mongo:27017/doublequotes
+    depends_on:
+      - mongo
+
+  mongo:
+    image: bitnami/mongodb
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
