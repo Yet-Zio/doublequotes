@@ -5,18 +5,20 @@ import userReducer from "./user/userSlice"
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { thunk } from "redux-thunk";
+import headerReducer from "./header/headerSlice";
 
 const rootConfig = {
     key: 'root',
     storage,
     safelist: ['user'],
-    blacklist: ['sortopt', 'sideopt']
+    blacklist: ['sortopt', 'sideopt', 'header']
 }
 
 const rootReducer = combineReducers({
     user: userReducer,
     sideopt: sideoptReducer,
-    sortopt: sortoptReducer
+    sortopt: sortoptReducer,
+    header: headerReducer
 })
 
 const persistedReducer = persistReducer(rootConfig, rootReducer)
