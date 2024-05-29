@@ -5,6 +5,7 @@ import { useDQDispatch, useDQSelector } from '../redux/hooks'
 import { useEffect } from 'react'
 import { change } from '../redux/sidebar/SideOptSlice'
 import Explore from './pages/Explore'
+import { setHeader } from '../redux/header/headerSlice'
 
 export default function DoubleQuotes({pagetorender}: PageToRenderProps) {
 
@@ -25,6 +26,8 @@ export default function DoubleQuotes({pagetorender}: PageToRenderProps) {
   }
 
   useEffect(() => {
+    dispatch(setHeader(true))
+    
     if(pagetorender){
       dispatch(change(pagetorender))
     }

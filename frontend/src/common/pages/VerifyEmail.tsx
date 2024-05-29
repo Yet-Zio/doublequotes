@@ -8,6 +8,7 @@ import LoadingAnimation from "../../assets/Loading.json"
 import { useLocation } from "react-router-dom"
 import axios from "axios"
 import { ALREADY_VERIFIED, APIURL, AccVerifiedText, AlreadyVerifiedText, TOKEN_NOT_FOUND, TokenNotFoundText, USER_NOT_FOUND, User404Token, VERIFIED_SUCCESS } from "../../constants"
+import { verifyUser } from "../../redux/user/userSlice"
 
 export default function VerifyEmail() {
 
@@ -19,7 +20,7 @@ export default function VerifyEmail() {
 
   const sendVerificationRequest = async () => {
     if(token){
-      await axios.get(`${APIURL}/api/verify-email?token=${token}`, {
+      await axios.get(`${APIURL}/api/account/verify-email?token=${token}`, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -27,6 +28,7 @@ export default function VerifyEmail() {
       }).then(response => {
 
         setVerificationState(response.data.server)
+        dispatch(verifyUser(true))
         setDone(true)
 
       }).catch(err => {

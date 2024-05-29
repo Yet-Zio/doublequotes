@@ -26,9 +26,13 @@ const userSlice = createSlice({
 
         logout: (state) => {
             state.currentUser = null
+        },
+
+        verifyUser: (state, action) => {
+            state.currentUser!.verified = action.payload
         }
     }
 })
 
 export default userSlice.reducer
-export const { login, logout } = userSlice.actions
+export const { login, logout, verifyUser } = userSlice.actions

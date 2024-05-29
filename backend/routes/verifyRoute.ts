@@ -5,7 +5,7 @@ import { User } from "../models/User";
 export const verifyRouter = Router();
 
 verifyRouter.get(
-  "/api/verify-email",
+  "/verify-email",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const token = req.query.token as string;

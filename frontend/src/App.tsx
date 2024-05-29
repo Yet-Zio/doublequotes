@@ -4,6 +4,7 @@ import DoubleQuotes from "./common/DoubleQuotes"
 import Login from "./common/auth/Login"
 import PageNotFound from "./common/pages/PageNotFound"
 import VerifyEmail from "./common/pages/VerifyEmail"
+import Verification from "./common/auth/Verification"
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/~/explore" element={<DoubleQuotes pagetorender="Explore"/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/verify-email" element={<VerifyEmail/>} />
+          <Route path="/pending-verification" element={<Verification/>}/>
           <Route path="*" element={<PageNotFound/>}/>
         </Routes>
       </Router>

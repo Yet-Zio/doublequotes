@@ -27,7 +27,7 @@ async function startServer(){
     })
 
     app.use("/api/auth", authRouter)
-    app.use(verifyRouter)
+    app.use("/api/account", verifyRouter)
 
     app.use(serverErrorHandler)
 

@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import Doodle from "./Doodle";
 import { CheckFat, Eye, EyeSlash, WarningCircle } from "@phosphor-icons/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Tooltip } from 'react-tooltip'
 import { APIURL, NOT_AN_EMAIL, EMAIL_ALREADY_EXISTS, TEMP_MAIL_DETECTED, INVALID_USERNAME_FORMAT, UNAME_ALREADY_EXISTS,
@@ -44,6 +44,7 @@ export default function Login() {
   const [loginProcess, setLoginProcess] = useState({start: false, success: false, done: false, loginres: ""})
 
   const dispatch = useDQDispatch()
+  const navigate = useNavigate()
 
   const renderSignupProgress = () => {
     if(signupProcess.done){
@@ -295,6 +296,7 @@ export default function Login() {
                 done: true,
             })
             dispatch(login(res.data))
+            navigate("/pending-verification")
         })
         .catch(err => {
             setSignupProcess({
