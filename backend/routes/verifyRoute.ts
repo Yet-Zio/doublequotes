@@ -5,7 +5,7 @@ import { User } from "../models/User";
 export const verifyRouter = Router();
 
 verifyRouter.get(
-  "/verify-email",
+  "/api/verify-email",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const token = req.query.token as string;
@@ -14,7 +14,7 @@ verifyRouter.get(
         const user = await User.findOne({ uuid: token });
 
         if (!user) {
-          next(errorHandler(404, "User not found"));
+          next(errorHandler(404, "USER_NOT_FOUND"));
         } else {
           if(user.verified){
             return res
@@ -29,7 +29,7 @@ verifyRouter.get(
             .json({ success: true, server: "VERIFIED_SUCCESS", message: "Email verified successfully!" });
         }
       } else {
-        next(errorHandler(400, "Token not found"));
+        next(errorHandler(400, "TOKEN_NOT_FOUND"));
       }
     } catch (err) {
         next(errorHandler);

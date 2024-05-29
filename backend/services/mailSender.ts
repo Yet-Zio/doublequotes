@@ -17,7 +17,7 @@ export const sendVerificationMail = async(uuid: string, receiver: string) => {
         to: receiver,
         subject: 'Thank you joining doublequotes!',
         html: `<b>Make your very own community!</b>`+
-        `<p><a href='http://localhost:3000/verify-email?token=${uuid}'>Verify Email</a></p>`,
+        `<p><a href='http://localhost:5173/verify-email?token=${uuid}'>Verify Email</a></p>`,
     };
 
     transporter.sendMail(message)

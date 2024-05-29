@@ -3,7 +3,6 @@ export const ENDQUOTE = "”"
 export const APIURL = "http://localhost:3000"
 
 // SIGNUP
-
 export const NOT_AN_EMAIL = "NOT_AN_EMAIL"
 export const EMAIL_ALREADY_EXISTS = "EMAIL_ALREADY_EXISTS"
 export const TEMP_MAIL_DETECTED = "TEMP_MAIL_DETECTED"
@@ -31,3 +30,14 @@ export const USER_NOT_FOUND = "USER_NOT_FOUND"
 
 export const InvalidPassText = "Password entered was not correct."
 export const UserNotFoundText = "An user associated with this email or username was not found!"
+
+// VERIFICATION
+export const VERIFIED_SUCCESS = "VERIFIED_SUCCESS"
+export const AccVerifiedText = "Your account has successfully been verified. Please login"
+
+export const ALREADY_VERIFIED = "ALREADY_VERIFIED"
+export const AlreadyVerifiedText = "Your account has already been verified."
+
+export const User404Token = "An user associated with the token was not found!"
+export const TOKEN_NOT_FOUND = "TOKEN_NOT_FOUND"
+export const TokenNotFoundText = "A verification token was not found!"
