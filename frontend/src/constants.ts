@@ -33,7 +33,7 @@ export const UserNotFoundText = "An user associated with this email or username 
 
 // VERIFICATION
 export const VERIFIED_SUCCESS = "VERIFIED_SUCCESS"
-export const AccVerifiedText = "Your account has successfully been verified. Please login"
+export const AccVerifiedText = "Your account has successfully been verified."
 
 export const ALREADY_VERIFIED = "ALREADY_VERIFIED"
 export const AlreadyVerifiedText = "Your account has already been verified."

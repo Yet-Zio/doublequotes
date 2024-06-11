@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react"
-import { useDQDispatch } from "../../redux/hooks"
+import { useDQDispatch, useDQSelector } from "../../redux/hooks"
 import { setHeader } from "../../redux/header/headerSlice"
 import Lottie from "lottie-react"
 import SuccessAnimation from "../../assets/Success.json"
 import ErrorAnimation from "../../assets/Error.json"
 import LoadingAnimation from "../../assets/Loading.json"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { ALREADY_VERIFIED, APIURL, AccVerifiedText, AlreadyVerifiedText, TOKEN_NOT_FOUND, TokenNotFoundText, USER_NOT_FOUND, User404Token, VERIFIED_SUCCESS } from "../../constants"
 import { verifyUser } from "../../redux/user/userSlice"
 
 export default function VerifyEmail() {
 
+  const userData = useDQSelector(state => state.user)
   const dispatch = useDQDispatch()
   const location = useLocation()
   const [token, setToken] = useState("")
   const [verificationState, setVerificationState] = useState("")
   const [done, setDone] = useState(false)
+  const [countdown, setCountdown] = useState(3)
+
+  const navigate = useNavigate()
 
   const sendVerificationRequest = async () => {
     if(token){
@@ -49,21 +53,34 @@ export default function VerifyEmail() {
     dispatch(setHeader(false))
 
     try{
-      const queryParams = new URLSearchParams(location.search)
-      const veriToken = queryParams.get('token')
-      if(!veriToken){
-        setVerificationState(TOKEN_NOT_FOUND)
-        setDone(true)
+      if(userData.currentUser?.verified){
+        const interval = setInterval(() => {
+          setCountdown(prevCountdown => prevCountdown - 1)
+        }, 1000)
+      
+        setTimeout(() => {
+            navigate("/profile")
+        }, 3000)
+
+        return () => clearInterval(interval)
       }
       else{
-        setToken(veriToken)
-        sendVerificationRequest()
+        const queryParams = new URLSearchParams(location.search)
+        const veriToken = queryParams.get('token')
+        if(!veriToken){
+          setVerificationState(TOKEN_NOT_FOUND)
+          setDone(true)
+        }
+        else{
+          setToken(veriToken)
+          sendVerificationRequest()
+        }
       }
     }
     catch(err){
       setVerificationState("ERROR_OCCURED")
     }
-  }, [token])
+  }, [token, userData.currentUser?.verified])
 
   const renderAnimation = () => {
     if(token){
@@ -73,14 +90,16 @@ export default function VerifyEmail() {
             return (
               <>
               <Lottie animationData={SuccessAnimation} loop={false} style={{ width: 300, height: 300 }}/>
-              <span className="mt-10 usedbquotes tracking-widest text-2xl">{AccVerifiedText}</span>
+              <span className="mt-10 usedbquotes text-wrap tracking-widest text-xl">{AccVerifiedText}</span>
+              <span className="mt-10 usedbquotes text-wrap tracking-widest text-xl">Redirecting to profile in {countdown} seconds.</span>
               </>
             )
           case ALREADY_VERIFIED:
             return (
               <>
               <Lottie animationData={SuccessAnimation} loop={false} style={{ width: 300, height: 300 }}/>
-              <span className="mt-10 usedbquotes tracking-widest text-2xl">{AlreadyVerifiedText}</span>
+              <span className="mt-10 usedbquotes text-wrap tracking-widest text-xl">{AlreadyVerifiedText}</span>
+              <span className="mt-10 usedbquotes text-wrap tracking-widest text-xl">Redirecting to profile in {countdown} seconds.</span>
               </>
             )
           case USER_NOT_FOUND:
