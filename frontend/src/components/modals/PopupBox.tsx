@@ -97,7 +97,7 @@ export default function PopupBox({type, message, moreinfo, closebt, setSignupPro
            className="flex flex-col relative justify-center items-center z-20 bg-[#242a1d] rounded-2xl p-2">
             {closebt && (
               <div className="absolute top-0 right-0 mt-2 mr-2">
-                <XCircle size={32} weight="fill" className="cursor-pointer text-[#a84b4b] hover:text-[#a84b4b]/75" onClick={() => {setShowPopup(!showPopup)
+                <XCircle size={32} weight="fill" className="cursor-pointer text-[#A9A74F] hover:text-[#A9A74F]/75" onClick={() => {setShowPopup(!showPopup)
                   if(setSignupProcess){
                     setSignupProcess({start: false, success: false, done: false, signupres: ""})
                   }
