@@ -1,0 +1,9 @@
+@font-face{
+    font-family: DoubleQuotes;
+    src: url('/fonts/dbquotes/Quote.ttf');
+}
+
+@font-face {
+    font-family: Inter;
+    src: url('/fonts/inter/Inter-Regular.ttf');
+}
