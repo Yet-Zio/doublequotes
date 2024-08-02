@@ -331,11 +331,11 @@ export default function Login() {
             <span className="text-[#6a765b] text-sm">OR</span>
             <div className='flex border-0 h-[1px] w-full bg-[#3e4535] ms-2'></div>
           </div>
-          {isLogin ? (<input value={loginDetails.id} onChange={(e) => {setLoginDetails({...loginDetails, id: e.target.value})}} type="text" className="mt-5 ms-5 me-5 p-4 ps-5 pe-5 rounded-3xl outline-0 focus-visible:outline-none focus-visible:border-none bg-[#3e4535]/25 text-gray-400 placeholder-gray-400 hover:bg-[#3e4535]/50 focus:bg-[#3e4535]/50" placeholder="Email or username *" required/>)
+          {isLogin ? (<input value={loginDetails.id} onChange={(e) => {setLoginDetails({...loginDetails, id: e.target.value})}} type="text" className="mt-5 ms-5 me-5 p-4 ps-5 pe-5 rounded-3xl outline-none border-none bg-[#3e4535]/25 text-gray-400 placeholder-gray-400 hover:bg-[#3e4535]/50 focus:bg-[#3e4535]/50" placeholder="Email or username *" required/>)
            : (
             <>
             <div className={`flex mt-5 ms-5 me-5 rounded-3xl items-center  text-gray-400 placeholder-gray-400 hover:bg-[#3e4535]/50 ${emailFocused ? "bg-[#3e4535]/50" : "bg-[#3e4535]/25"}`}>
-              <input value={signupDetails.email} onChange={(e) => {setSignupDetails({...signupDetails, email: e.target.value})}} type="text" className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0 focus-visible:outline-none focus-visible:border-none" placeholder="Email *" required onFocus={() => setEmailFocused(!emailFocused)} onBlur={() => {setEmailFocused(!emailFocused); checkMailExists()}}/>
+              <input value={signupDetails.email} onChange={(e) => {setSignupDetails({...signupDetails, email: e.target.value})}} type="text" className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-none border-none" placeholder="Email *" required onFocus={() => setEmailFocused(!emailFocused)} onBlur={() => {setEmailFocused(!emailFocused); checkMailExists()}}/>
               {signupDetails.email && (
                 !emailExists ? (<><CheckFat size={16} weight="fill" className="me-5 text-[#A9A74F]" data-tooltip-id="emailTooltip" data-tooltip-content={emailTooltip}/>
                 <Tooltip id="emailTooltip" style={{backgroundColor: "rgb(169, 167, 79)"}}/></>)
@@ -344,7 +344,7 @@ export default function Login() {
                )}
             </div>
             <div className={`flex mt-5 ms-5 me-5 rounded-3xl items-center  text-gray-400 placeholder-gray-400 hover:bg-[#3e4535]/50 ${unameFocused ? "bg-[#3e4535]/50" : "bg-[#3e4535]/25"}`}>
-              <input value={signupDetails.uname} onChange={(e) => {setSignupDetails({...signupDetails, uname: e.target.value})}} type="text" className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0 focus-visible:outline-none focus-visible:border-none" placeholder="Username *" required onFocus={() => setUnameFocused(!unameFocused)} onBlur={() => {setUnameFocused(!unameFocused); checkUnameExists()}}/>
+              <input value={signupDetails.uname} onChange={(e) => {setSignupDetails({...signupDetails, uname: e.target.value})}} type="text" className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-none border-none" placeholder="Username *" required onFocus={() => setUnameFocused(!unameFocused)} onBlur={() => {setUnameFocused(!unameFocused); checkUnameExists()}}/>
               {signupDetails.uname && (
                 !unameExists ? (<><CheckFat size={16} weight="fill" className="me-5 text-[#A9A74F]" data-tooltip-id="unameTooltip" data-tooltip-content={unameTooltip}/>
                 <Tooltip id="unameTooltip" style={{backgroundColor: "rgb(169, 167, 79)"}}/></>)
@@ -353,7 +353,7 @@ export default function Login() {
                )}
             </div>
             <div className={`flex mt-5 ms-5 me-5 rounded-3xl items-center  text-gray-400 placeholder-gray-400 hover:bg-[#3e4535]/50 ${passFocused ? "bg-[#3e4535]/50" : "bg-[#3e4535]/25"}`}>
-              <input value={signupDetails.password} onChange={(e) => {setSignupDetails({...signupDetails, password: e.target.value})}} type={passHidden ? "password" : "text"} className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0 focus-visible:outline-none focus-visible:border-none" placeholder="Password *" required onFocus={() => setPassFocused(!passFocused)} onBlur={() => {setPassFocused(!passFocused); validatePassword()}}/>
+              <input value={signupDetails.password} onChange={(e) => {setSignupDetails({...signupDetails, password: e.target.value})}} type={passHidden ? "password" : "text"} className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-none border-none" placeholder="Password *" required onFocus={() => setPassFocused(!passFocused)} onBlur={() => {setPassFocused(!passFocused); validatePassword()}}/>
               {passHidden ? <EyeSlash size={24} onClick={() => setPassHidden(!passHidden)} className="me-5"/> :
               <Eye size={24} onClick={() => setPassHidden(!passHidden)} className="me-5"/>}
               {signupDetails.password && (
@@ -367,7 +367,7 @@ export default function Login() {
            )}
           
           {isLogin && (<div className={`flex mt-5 ms-5 me-5 rounded-3xl items-center  text-gray-400 placeholder-gray-400 hover:bg-[#3e4535]/50 ${passFocused ? "bg-[#3e4535]/50" : "bg-[#3e4535]/25"}`}>
-            <input value={loginDetails.password} onChange={(e) => {setLoginDetails({...loginDetails, password: e.target.value})}} type={passHidden ? "password" : "text"} className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-0 border-0 focus-visible:outline-none focus-visible:border-none" placeholder="Password *" required onFocus={() => setPassFocused(!passFocused)} onBlur={() => setPassFocused(!passFocused)}/>
+            <input value={loginDetails.password} onChange={(e) => {setLoginDetails({...loginDetails, password: e.target.value})}} type={passHidden ? "password" : "text"} className="bg-transparent w-full h-full p-4 ps-5 pe-5 outline-none border-none" placeholder="Password *" required onFocus={() => setPassFocused(!passFocused)} onBlur={() => setPassFocused(!passFocused)}/>
             {passHidden ? <EyeSlash size={24} onClick={() => setPassHidden(!passHidden)} className="me-5"/> : 
               <Eye size={24} onClick={() => setPassHidden(!passHidden)} className="me-5"/>}
           </div>)}

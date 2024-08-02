@@ -49,7 +49,7 @@ export default function Navbar() {
       <div className="flex w-full justify-start ms-3 md:justify-center md:ms-0">
         <div onClick={() => {inputRef.current?.focus()}} className="flex justify-center pt-2 pb-2 ps-5 pe-7 rounded-2xl bg-[#1f211d] text-gray-400 outline-0 border-0 hover:bg-[#1f211d]/75 items-center">
           <MagnifyingGlass size={20} onClick={() => {inputRef.current?.focus()}}/>
-          <input ref={inputRef} type='text' placeholder='Search DoubleQuotes...' className='useinter ms-2 w-[50px] md:w-[200px] lg:w-[546px] bg-transparent outline-0 border-0'></input>
+          <input ref={inputRef} type='text' placeholder='Search DoubleQuotes...' className='useinter ms-2 w-[50px] md:w-[200px] lg:w-[546px] bg-transparent outline-none border-none'></input>
         </div>
       </div>
       <div className="flex relative">
