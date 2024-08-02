@@ -10,3 +10,7 @@ export interface AuthBody {
 export interface AuthenticatedRequest extends Request{
     user?: any
 }
+
+export interface SendMail {
+    uuid: string
+}
