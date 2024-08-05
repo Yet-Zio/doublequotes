@@ -1,3 +1,6 @@
+import { readFileSync } from "fs"
+import Handlebars from "handlebars"
+import mjml2html from "mjml"
 import nodemailer from "nodemailer"
 
 let config = {
@@ -8,18 +11,39 @@ let config = {
      }
 }
 
+const MJMLtoHTML = async(filename: string): Promise<string>  => {
+    try{
+        const src = readFileSync(filename, 'utf-8').toString()
+        const mjmlout = mjml2html(src)
+
+        return mjmlout.html
+    }
+    catch(err){
+        console.log("MJML Conversion error")
+        console.log(err)
+        return "Unexpected error"
+    }
+}
+
 export const sendVerificationMail = async(uuid: string, receiver: string) => {
 
     let transporter = nodemailer.createTransport(config);
 
+    const htmlsrc = await MJMLtoHTML("./services/emails/verifyAcc.mjml")
+    const template = Handlebars.compile(htmlsrc)
+
+    const replacements = {
+        uuid: uuid
+    }
+
+    const htmlToSend = template(replacements)
+
     let message = {
         from: process.env.FROMMAIL,
         to: receiver,
-        subject: 'Thank you joining doublequotes!',
-        html: `<b>Make your very own community!</b>`+
-        `<p><a href='http://localhost:5173/verify-email?token=${uuid}'>Verify Email</a></p>`,
+        subject: 'Verify Account - DoubleQuotes',
+        html: htmlToSend
     };
-
 
     transporter.sendMail(message)
         .then(info => {

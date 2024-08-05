@@ -1,0 +1,37 @@
+<mjml>
+    <mj-body background-color="#0c0d0c">
+      <mj-section>
+        <mj-column>
+  
+          <mj-image width="500px" height="100px" src="https://i.postimg.cc/hvjkwkc5/db-brand.png"></mj-image>
+  
+          <mj-divider border-width="2px" border-color="#3c3e39"></mj-divider>
+          
+        </mj-column>
+      </mj-section>
+      <mj-section background-color="#ffffff" border-radius="20px">
+ 
+       	<mj-column>
+        	<mj-text align="center" line-height="2.5" font-size="20px" >Thank you for joining DoubleQuotes,</mj-text>
+        
+        	<mj-text align="center" line-height="1.5">We hope you find your desired communities and enjoy your stay.</mj-text>
+         
+        	<mj-text align="center">Meanwhile, please verify your account by clicking the button below:</mj-text>
+        
+        	<mj-button align="center" border-radius="20px" href="http://localhost:5173/verify-email?token={{uuid}}">Verify Account</mj-button>
+          
+          <mj-text align="center">Alternatively, you could also use this link:</mj-text>
+          <mj-text align="center"><a href="http://localhost:5173/verify-email?token={{uuid}}">http://localhost:5173/verify-email?token={{uuid}}</a></mj-text>
+          
+          <mj-text></mj-text>
+          <mj-text></mj-text>
+          <mj-text align="center" font-size="11px" color="#eb4034" font-style="italic" font-weight="700" line-height="1.5">If the existing account is not verified within 1 day, the account will be deleted. This is to prevent spam and other malicious actions.</mj-text>
+      	</mj-column>
+      </mj-section>
+      <mj-section background-color="#0c0d0c">
+        <mj-column>
+          <mj-text></mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-body>
+</mjml>
