@@ -3,7 +3,7 @@
       <mj-section>
         <mj-column>
   
-          <mj-image width="500px" height="100px" src="https://i.postimg.cc/hvjkwkc5/db-brand.png"></mj-image>
+          <mj-image width="500px" height="100px" src="https://raw.githubusercontent.com/Yet-Zio/doublequotes/main/backend/services/emails/assets/db_brand.png"></mj-image>
   
           <mj-divider border-width="2px" border-color="#3c3e39"></mj-divider>
           
