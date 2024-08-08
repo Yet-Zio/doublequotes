@@ -35,6 +35,7 @@
     "mongoose": "^8.2.1",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.12",
+    "simple-node-logger": "^21.8.12",
     "uuid": "^9.0.1",
     "validator": "^13.11.0"
   },

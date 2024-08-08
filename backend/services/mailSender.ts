@@ -2,6 +2,9 @@ import { readFileSync } from "fs"
 import Handlebars from "handlebars"
 import mjml2html from "mjml"
 import nodemailer from "nodemailer"
+import { createSimpleLogger } from "simple-node-logger"
+
+const mailSrvLog = createSimpleLogger('mailService.log')
 
 let config = {
     service: 'gmail',
@@ -30,10 +33,16 @@ export const sendVerificationMail = async(uuid: string, receiver: string) => {
     let transporter = nodemailer.createTransport(config);
 
     const htmlsrc = await MJMLtoHTML("./services/emails/verifyAcc.mjml")
+
+    if(htmlsrc === "Unexpected error"){
+        mailSrvLog.error("Failed to send verification mail to user identified by: ", uuid, " at ", new Date().toLocaleString(), " - REASON: MJML conversion error")
+        return
+    } 
+
     const template = Handlebars.compile(htmlsrc)
 
     const replacements = {
-        uuid: uuid
+        uuid
     }
 
     const htmlToSend = template(replacements)
