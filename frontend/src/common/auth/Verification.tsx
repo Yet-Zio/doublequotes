@@ -13,6 +13,10 @@ export default function Verification() {
     const navigate = useNavigate()
     const [countdown, setCountdown] = useState(5)
 
+    const resendEmail = async () => {
+        
+    }
+
     useEffect(() => {
         dispatch(setHeader(false))
 
@@ -41,14 +45,14 @@ export default function Verification() {
             <span className='text-4xl text-white usedbquotes ms-2 hover:cursor-pointer select-none hidden md:flex' onClick={() => {window.location.href = "/"}}>Double<span className='text-[#A9A74F]'>Quotes</span></span>
         </div>
         {userData.currentUser.verified ? (
-        <div className="flex flex-col justify-center relative items-center w-[500px] h-[350px] bg-[#0f100f] rounded-xl">
+        <div className="flex flex-col justify-center relative items-center w-[360px] sm:w-[500px] h-[350px] bg-[#0f100f] rounded-xl">
             <Lottie className="absolute top-3" animationData={SuccessAnimation} loop={false} style={{ width: 150, height: 150 }}/>
             <span className="ps-5 pe-5 text-xl text-justify font-sans">Your account appears to be already verified.</span>
             <span className="absolute bottom-20 font-sans text-lg text-gray-400">¯\_(ツ)_/¯</span>
             <span className="absolute bottom-7 font-sans ps-5 pe-5 text-justify text-gray-400">Don't know why you are here though. Sending you back home in {countdown} seconds</span>
         </div>
         ) : (
-        <div className="flex flex-col justify-center relative items-center w-[500px] h-[450px] bg-[#0f100f] rounded-xl">
+        <div className="flex flex-col justify-center relative items-center w-[360px] sm:w-[500px] h-[450px] bg-[#0f100f] rounded-xl">
             <Lottie className="absolute top-3" animationData={SuccessAnimation} loop={false} style={{ width: 150, height: 150 }}/>
             <span className="ps-5 pe-5 text-2xl font-semibold mt-24 mb-5 text-justify font-sans">Email verification pending</span>
             <span className="ps-5 pe-5 text-base text-justify font-sans text-gray-400">We have sent an email for verification. Follow the instructions in email for logging into your account.</span>
