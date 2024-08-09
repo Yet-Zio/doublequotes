@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { Quotes } from "@phosphor-icons/react"
 import Lottie from "lottie-react"
 import SuccessAnimation from "../../assets/Success.json"
+import { APIURL } from "../../constants"
+import axios from "axios"
 
 export default function Verification() {
 
@@ -14,7 +16,17 @@ export default function Verification() {
     const [countdown, setCountdown] = useState(5)
 
     const resendEmail = async () => {
-        
+        await axios.post(`${APIURL}/api/account/resend-ver-email`, {
+            email: userData.currentUser?.email
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            console.log("Resend success")
+        }).catch(err => {
+            console.log("Resend fail")
+        })
     }
 
     useEffect(() => {
@@ -56,7 +68,7 @@ export default function Verification() {
             <Lottie className="absolute top-3" animationData={SuccessAnimation} loop={false} style={{ width: 150, height: 150 }}/>
             <span className="ps-5 pe-5 text-2xl font-semibold mt-24 mb-5 text-justify font-sans">Email verification pending</span>
             <span className="ps-5 pe-5 text-base text-justify font-sans text-gray-400">We have sent an email for verification. Follow the instructions in email for logging into your account.</span>
-            <button className="mt-7 p-2 ps-10 pe-10 bg-[#A9A74F] hover:bg-[#A9A74F]/75 rounded-3xl">Resend email</button>
+            <button className="mt-7 p-2 ps-10 pe-10 bg-[#A9A74F] hover:bg-[#A9A74F]/75 rounded-3xl" onClick={() => {resendEmail()}}>Resend email</button>
             <span className="mt-3 ps-5 pe-5 text-base text-justify font-sans text-gray-400">Email already verified? <Link className="text-[#A9A74F]" to="/profile">Click here</Link></span>
         </div>
         )}
