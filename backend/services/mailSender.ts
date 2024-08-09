@@ -1,10 +1,19 @@
-import { readFileSync } from "fs"
+import { existsSync, mkdirSync, readFileSync } from "fs"
 import Handlebars from "handlebars"
 import mjml2html from "mjml"
 import nodemailer from "nodemailer"
 import { createSimpleLogger } from "simple-node-logger"
 
-const mailSrvLog = createSimpleLogger('mailService.log')
+const checkLogDirExistence = () => {
+    if(!existsSync('./logs/mailservice')){
+        mkdirSync('./logs/mailservice', { recursive: true })
+    }
+}
+
+checkLogDirExistence()
+
+const errSrvLog = createSimpleLogger('./logs/mailservice/mailSrvError.log')
+const infoSrvLog = createSimpleLogger('./logs/mailservice/mailSrvInfo.log')
 
 let config = {
     service: 'gmail',
@@ -22,8 +31,6 @@ const MJMLtoHTML = async(filename: string): Promise<string>  => {
         return mjmlout.html
     }
     catch(err){
-        console.log("MJML Conversion error")
-        console.log(err)
         return "Unexpected error"
     }
 }
@@ -35,7 +42,7 @@ export const sendVerificationMail = async(uuid: string, receiver: string) => {
     const htmlsrc = await MJMLtoHTML("./services/emails/verifyAcc.mjml")
 
     if(htmlsrc === "Unexpected error"){
-        mailSrvLog.error("Failed to send verification mail to user identified by: ", uuid, " at ", new Date().toLocaleString(), " - REASON: MJML conversion error")
+        errSrvLog.error("Failed to send verification mail to user identified by: ", uuid, " at ", new Date().toLocaleString(), " - REASON: MJML conversion error")
         return
     } 
 
@@ -56,9 +63,9 @@ export const sendVerificationMail = async(uuid: string, receiver: string) => {
 
     transporter.sendMail(message)
         .then(info => {
-            console.log("Mail send succesfully!")
+            infoSrvLog.info("Successfully send verification mail to user identified by: ", uuid, " at ", new Date().toLocaleString())
         })
         .catch(err => {
-            console.log("Mail failed to send!")
+            errSrvLog.error("Failed to send verification mail to user identified by: ", uuid, " at ", new Date().toLocaleString(), ` - REASON: Transporter failed to send due to ${err.message}`)
         })
 }
