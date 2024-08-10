@@ -41,3 +41,8 @@ export const AlreadyVerifiedText = "Your account has already been verified."
 export const User404Token = "An user associated with the token was not found!"
 export const TOKEN_NOT_FOUND = "TOKEN_NOT_FOUND"
 export const TokenNotFoundText = "A verification token was not found!"
+
+// VERIFICATION
+
+export const RESEND_PARAM_MISSING = "RESEND_PARAM_MISSING"
+export const ResendVerParamText = "Verification mail failed to send due to missing parameters. Are you logged in?"

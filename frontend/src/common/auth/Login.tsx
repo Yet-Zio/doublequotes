@@ -269,7 +269,7 @@ export default function Login() {
             start: true,
             success: false,
             done: true,
-            loginres: err.response.data.message
+            loginres: err.response.data.message || "Something went wrong."
           })
             
         })
@@ -304,7 +304,7 @@ export default function Login() {
                 start: true,
                 success: false,
                 done: true,
-                signupres: err.response.data.res
+                signupres: err.response.data.res || "Something went wrong."
             })
             
         })

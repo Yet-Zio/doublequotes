@@ -5,8 +5,9 @@ import { Link, useNavigate } from "react-router-dom"
 import { Quotes } from "@phosphor-icons/react"
 import Lottie from "lottie-react"
 import SuccessAnimation from "../../assets/Success.json"
-import { APIURL } from "../../constants"
+import { ALREADY_VERIFIED, APIURL, RESEND_PARAM_MISSING, ResendVerParamText, USER_NOT_FOUND } from "../../constants"
 import axios from "axios"
+import toast, { Toaster } from "react-hot-toast"
 
 export default function Verification() {
 
@@ -23,9 +24,81 @@ export default function Verification() {
                 'Content-Type': 'application/json'
             }
         }).then(response => {
-            console.log("Resend success")
+
+            if(response.data.server === ALREADY_VERIFIED){
+                toast.success('Your account seems to be already verified', {
+                    style: {
+                      border: '1px solid #A9A74F',
+                      padding: '16px',
+                      color: '#FFFFFF',
+                      backgroundColor: '#0c0d0c'
+                    },
+                    iconTheme: {
+                      primary: '#A9A74F',
+                      secondary: '#FFFAEE',
+                    },
+                  })
+            }
+            else{
+                toast.success('Verification mail has been send to your inbox!', {
+                    style: {
+                      border: '1px solid #A9A74F',
+                      padding: '16px',
+                      color: '#FFFFFF',
+                      backgroundColor: '#0c0d0c'
+                    },
+                    iconTheme: {
+                      primary: '#A9A74F',
+                      secondary: '#FFFAEE',
+                    },
+                  })
+            }
+
         }).catch(err => {
-            console.log("Resend fail")
+            const res: string = err.response.data.message
+
+            if(res === USER_NOT_FOUND){
+                toast.error('An user account associated with the email id was not found!', {
+                    style: {
+                      border: '1px solid #f43f5e',
+                      padding: '16px',
+                      color: '#FFFFFF',
+                      backgroundColor: '#0c0d0c'
+                    },
+                    iconTheme: {
+                      primary: '#f43f5e',
+                      secondary: '#FFFAEE',
+                    },
+                })
+            }
+            else if(res === RESEND_PARAM_MISSING){
+                toast.error(ResendVerParamText, {
+                    style: {
+                      border: '1px solid #f43f5e',
+                      padding: '16px',
+                      color: '#FFFFFF',
+                      backgroundColor: '#0c0d0c'
+                    },
+                    iconTheme: {
+                      primary: '#f43f5e',
+                      secondary: '#FFFAEE',
+                    },
+                })
+            }
+            else{
+                toast.error("Something went wrong!", {
+                    style: {
+                      border: '1px solid #f43f5e',
+                      padding: '16px',
+                      color: '#FFFFFF',
+                      backgroundColor: '#0c0d0c'
+                    },
+                    iconTheme: {
+                      primary: '#f43f5e',
+                      secondary: '#FFFAEE',
+                    },
+                })
+            }
         })
     }
 
@@ -51,6 +124,7 @@ export default function Verification() {
     <>
     {userData.currentUser != null ? (
     <>
+    <Toaster/>
     <div className="flex flex-col justify-center items-center min-h-screen min-w-screen bg-[#0c0d0c]">
         <div className="flex items-center mb-5">
             <Quotes size={64} className='text-[#A9A74F] hover:cursor-pointer' weight='bold' onClick={() => {window.location.href = "/"}}/>

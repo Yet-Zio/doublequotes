@@ -32,6 +32,11 @@ export default function VerifyEmail() {
       }).then(response => {
 
         setVerificationState(response.data.server)
+        if(userData.currentUser === null){
+          setTimeout(() => {
+              navigate("/")
+          }, 3000)
+        }
         dispatch(verifyUser(true))
         setDone(true)
 
