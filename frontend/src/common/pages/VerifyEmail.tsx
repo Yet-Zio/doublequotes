@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { ALREADY_VERIFIED, APIURL, AccVerifiedText, AlreadyVerifiedText, TOKEN_NOT_FOUND, TokenNotFoundText, USER_NOT_FOUND, User404Token, VERIFIED_SUCCESS } from "../../constants"
 import { verifyUser } from "../../redux/user/userSlice"
+import toast, { Toaster } from "react-hot-toast"
 
 export default function VerifyEmail() {
 
@@ -33,9 +34,23 @@ export default function VerifyEmail() {
 
         setVerificationState(response.data.server)
         if(userData.currentUser === null){
+
+          toast.error('Your account has been verified but it seems you might need to login again.', {
+            style: {
+              border: '1px solid #f43f5e',
+              padding: '16px',
+              color: '#FFFFFF',
+              backgroundColor: '#0c0d0c'
+            },
+            iconTheme: {
+              primary: '#f43f5e',
+              secondary: '#FFFAEE',
+            },
+          })
+          
           setTimeout(() => {
               navigate("/")
-          }, 3000)
+          }, 5000)
         }
         dispatch(verifyUser(true))
         setDone(true)
@@ -124,6 +139,7 @@ export default function VerifyEmail() {
           default:
             return (
               <>
+              <Toaster/>
               <Lottie animationData={ErrorAnimation} loop={false} style={{ width: 300, height: 300 }}/>
               <span className="mt-10 usedbquotes tracking-widest text-2xl">Something went wrong!</span>
               </>

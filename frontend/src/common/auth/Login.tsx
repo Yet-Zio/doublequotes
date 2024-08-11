@@ -113,7 +113,7 @@ export default function Login() {
     google.accounts.id.renderButton(
       document.getElementById('gSignInDiv')!,
       {
-        theme: "outline", text: "continue_with", size: "large", shape: "circle", width: 350, type: "standard"
+        theme: "outline", text: "continue_with", size: "large", shape: "circle", width: 300, type: "standard"
       }
     )
   }
@@ -322,7 +322,7 @@ export default function Login() {
       <div className="flex w-full h-full select-none">
         <Doodle/>
       </div>
-      <form onSubmit={handleSubmit} className="absolute flex flex-col w-[530px] h-[644px] bg-[#1a1e15] rounded-2xl useinter p-10">
+      <form onSubmit={handleSubmit} className="absolute flex flex-col w-[360px] md:w-[530px] h-[644px] bg-[#1a1e15] rounded-2xl useinter p-10">
           <span className="text-2xl font-extrabold">{isLogin ? "Log In" : "Sign Up"}</span>
           <span className="mt-2 text-xs text-gray-300">By continuing, you can use Double Quotes to its full extent. Your data is not used for any other purposes as this is a hobby project.</span>
           <div id="gSignInDiv" className={`mt-3 ${!isLogin && "pb-1"} rounded-full overflow-hidden self-center`}></div>
