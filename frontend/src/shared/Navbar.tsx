@@ -9,11 +9,20 @@ import {
 } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import SidebarSm from "./sidebar/SidebarSm";
+import Drawer from 'react-modern-drawer'
+import 'react-modern-drawer/dist/index.css'
 
 export default function Navbar() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dropRef = useRef<HTMLButtonElement | null>(null);
   const [authDrop, setAuthDrop] = useState(false);
+  const [sideOpen, setSideOpen] = useState(false);
+  const [hideDrButton, setHideDrButton] = useState(false);
+
+  const toggleDrawer = () => {
+    setSideOpen((prevState) => !prevState);
+  };
 
   const dropVariants = {
     hidden: {
@@ -41,15 +50,32 @@ export default function Navbar() {
 
     document.addEventListener("mousedown", handleClickOutside);
 
+    if(['/login', '/~/explore'].includes(window.location.pathname)){
+      setHideDrButton(true)
+    }
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   });
 
   return (
+    <>
+    <Drawer
+      open={sideOpen}
+      onClose={toggleDrawer}
+      direction='left'
+      className='fixed mt-14 lg:hidden'
+    >
+      <SidebarSm/>
+    </Drawer>
     <nav className="flex w-full items-center ps-3 bg-[#0c0d0c]">
       <div className="flex items-center">
-        <List size={28} className="text-white me-2 flex lg:hidden" />
+        <List
+          size={28}
+          className={`text-white me-2 ${hideDrButton ? "hidden" : "flex"} lg:hidden`}
+          onClick={toggleDrawer}
+        />
         <Quotes
           size={40}
           className="text-[#A9A74F] hover:cursor-pointer"
@@ -145,5 +171,6 @@ export default function Navbar() {
         ""
       )}
     </nav>
+    </>
   );
 }
