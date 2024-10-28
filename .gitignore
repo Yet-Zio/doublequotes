@@ -15,6 +15,11 @@ dist-ssr
 .env
 .env.backend
 .env.*
+
+redis.conf
+redis.crt
+redis.key
+ca.crt
 googleoauth.json
 
 # Editor directories and files

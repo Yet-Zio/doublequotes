@@ -1,0 +1,15 @@
+services:
+  redis:
+    image: redis:7.4.0-alpine
+    volumes:
+      - ./config/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./config/certs/redis.crt:/usr/local/etc/redis/redis.crt
+      - ./config/certs/redis.key:/usr/local/etc/redis/redis.key
+      - ./config/certs/ca.crt:/usr/local/etc/redis/ca.crt
+      - redis-data:/data
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    ports:
+      - "6379:6379"
+
+volumes:
+  redis-data:

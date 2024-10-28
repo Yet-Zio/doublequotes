@@ -134,14 +134,23 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
                     sendVerificationMail(uuid, email!)
                     
                     let payload = {
-                        id: newuser.id
+                        id: newuser.id,
+                        iss: "doublequotes"
                     }
                     const expiresInWeek = 28 * 24 * 60 * 60;
+                    // accessToken
                     const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: expiresInWeek})
                     const expiryDate = new Date(Date.now() + expiresInWeek * 1000)
 
+                    // refreshToken
+                    const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET as string, {expiresIn: '180d'})
+                    const refresh_expiryDate = new Date(Date.now() + 180 * 24 * 60 * 60)
+
                     const {password: pass, __v: v, uuid: uid, ...rest} = (newuser as any)._doc
-                    return res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate}).status(200).json({success : true, ...rest})
+
+                    res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate})
+                    res.cookie("refreshToken", refreshToken, {httpOnly: true, expires: refresh_expiryDate})
+                    return res.status(200).json({success : true, ...rest})
                 })
             })
         })
@@ -161,7 +170,8 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
             let success = false
             let payload = {
-                id: ""
+                id: "",
+                iss: "doublequotes"
             }
 
             let userData
@@ -189,11 +199,20 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
             }
 
             if(success){
+
+                // accessToken
                 const expiresInWeek = 28 * 24 * 60 * 60;
                 const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: expiresInWeek})
                 const expiryDate = new Date(Date.now() + expiresInWeek * 1000)
+
+                // refreshToken
+                const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET as string, {expiresIn: '180d'})
+                const refresh_expiryDate = new Date(Date.now() + 180 * 24 * 60 * 60)
+
+                res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate})
+                res.cookie("refreshToken", refreshToken, {httpOnly: true, expires: refresh_expiryDate})
                 
-                return res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate}).status(200).json({success, ...userData})
+                return res.status(200).json({success, ...userData})
             }
             else{
                 return next(errorHandler(500, "Something went wrong"))
@@ -202,6 +221,17 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         else{
             return next(errorHandler(400, "Invalid credential format"))
         }
+    }
+    catch(err){
+        return next(errorHandler)
+    }
+}
+
+export const logout = async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        ["accessToken", "refreshToken"].forEach(cookie => res.clearCookie(cookie))
+
+        return res.status(200).json({message: "LOGGED_OUT_SUCCESSFULLY"})
     }
     catch(err){
         return next(errorHandler)

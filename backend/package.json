@@ -8,7 +8,8 @@
     "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "nodemon index.ts",
-    "rem-unverified-users": "ts-node ./cron/RemoveUnverifiedUsers.ts"
+    "rem-unverified-users": "ts-node ./cron/RemoveUnverifiedUsers.ts",
+    "testRedisInstance": "ts-node ./test/runRedisCommander.ts"
   },
   "author": "",
   "license": "BSD-3-Clause",
@@ -34,6 +35,7 @@
     "mongoose": "^8.5.2",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.14",
+    "redis": "^4.7.0",
     "simple-node-logger": "^21.8.12",
     "uuid": "^10.0.0",
     "validator": "^13.12.0"
