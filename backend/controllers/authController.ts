@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { AuthBody } from "../types";
+import { AuthBody, AuthenticatedRequest, TokenData } from "../types";
 import { errorHandler } from "../utils/errorHandler";
 import { User } from "../models/User";
 import argon2 from "argon2"
@@ -8,6 +8,10 @@ import { sendVerificationMail } from "../services/mailSender";
 import jwt from "jsonwebtoken"
 import { isFakeEmail } from "fakefilter";
 import { isEmail, matches, isLength } from "validator";
+import { Redis } from "../utils/Redis";
+
+export const ACCESS_TOKEN_EXPIRY = 28 * 24 * 60 * 60
+export const REFRESH_TOKEN_EXPIRY = 180 * 24 * 60 * 60
 
 export const checkemail = async(req: Request, res: Response, next: NextFunction) => {
     try{
@@ -123,7 +127,9 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
         await checkemail(req, res, async () => {
             await checkuname(req, res, async() => {
                 await checkpassword(req, res, async () => {
-                    const { uname, email, password }: AuthBody = req.body
+                    const { uname, email, password, fingerprint }: AuthBody = req.body
+
+                    console.log("fingerprint of client: ", fingerprint)
                     
                     const hashPass = await argon2.hash(password)
                     
@@ -137,14 +143,15 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
                         id: newuser.id,
                         iss: "doublequotes"
                     }
-                    const expiresInWeek = 28 * 24 * 60 * 60;
                     // accessToken
-                    const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: expiresInWeek})
-                    const expiryDate = new Date(Date.now() + expiresInWeek * 1000)
+                    const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: ACCESS_TOKEN_EXPIRY})
+                    const expiryDate = new Date(Date.now() + ACCESS_TOKEN_EXPIRY * 1000)
 
                     // refreshToken
                     const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET as string, {expiresIn: '180d'})
-                    const refresh_expiryDate = new Date(Date.now() + 180 * 24 * 60 * 60)
+                    const refresh_expiryDate = new Date(Date.now() + REFRESH_TOKEN_EXPIRY * 1000)
+
+                    await Redis.set(fingerprint + "||" + newuser.id, refreshToken, REFRESH_TOKEN_EXPIRY)
 
                     const {password: pass, __v: v, uuid: uid, ...rest} = (newuser as any)._doc
 
@@ -162,7 +169,7 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
     try{
-        const { identifier, password } : AuthBody = req.body
+        const { identifier, password, fingerprint} : AuthBody = req.body
 
         if(identifier && password){
             const unameUser = await User.findOne({uname: identifier})
@@ -201,13 +208,29 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
             if(success){
 
                 // accessToken
-                const expiresInWeek = 28 * 24 * 60 * 60;
-                const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: expiresInWeek})
-                const expiryDate = new Date(Date.now() + expiresInWeek * 1000)
+                const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: ACCESS_TOKEN_EXPIRY})
+                const expiryDate = new Date(Date.now() + ACCESS_TOKEN_EXPIRY * 1000)
 
                 // refreshToken
-                const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET as string, {expiresIn: '180d'})
-                const refresh_expiryDate = new Date(Date.now() + 180 * 24 * 60 * 60)
+                let refreshToken
+                let refresh_expiryDate
+
+                if(fingerprint){
+                    const existingRefreshToken = await Redis.get(fingerprint + "||" + payload.id)
+
+                    if(existingRefreshToken){
+                        const decodedData = jwt.decode(existingRefreshToken as string) as TokenData
+
+                        if(decodedData && decodedData.exp){
+                            refresh_expiryDate = new Date(Date.now() + decodedData.exp * 1000)
+                        }
+                        refreshToken = existingRefreshToken
+                    }
+                    else{
+                        refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET as string, {expiresIn: '180d'})
+                        refresh_expiryDate = new Date(Date.now() + REFRESH_TOKEN_EXPIRY * 1000)
+                    }
+                }
 
                 res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate})
                 res.cookie("refreshToken", refreshToken, {httpOnly: true, expires: refresh_expiryDate})
@@ -220,6 +243,19 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         }
         else{
             return next(errorHandler(400, "Invalid credential format"))
+        }
+    }
+    catch(err){
+        return next(errorHandler)
+    }
+}
+
+export const testauthController = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    try{
+        const user = req.user
+
+        if(user){
+            return res.json({success: true, user: user, userID: user.id})
         }
     }
     catch(err){

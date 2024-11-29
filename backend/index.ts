@@ -10,6 +10,7 @@ import { connectToMongo } from "./config/db";
 import { authRouter } from "./routes/authRoute";
 import { verifyRouter } from "./routes/verifyRoute"
 import { serverErrorHandler } from "./utils/errorHandler";
+import { Redis } from "./utils/Redis";
 
 async function startServer(){
     const app: Express = express()
@@ -21,6 +22,7 @@ async function startServer(){
     app.use(compression())
 
     await connectToMongo()
+    await Redis.connect()
 
     app.get("/", (req: Request, res: Response) => {
         res.send("(⓿_⓿): Hello, you are communicating with DoubleQuotes.")
