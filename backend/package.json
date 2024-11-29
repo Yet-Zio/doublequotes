@@ -26,6 +26,7 @@
     "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "cross-spawn": "^7.0.6",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "fakefilter": "^0.1.1038",
