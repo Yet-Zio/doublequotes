@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response, ErrorRequestHandler } from "express";
 
 class APIError extends Error{
     constructor(public statusCode: number, message: string){
@@ -16,9 +16,13 @@ export const errorHandler = (statusCode: number, message: string) => {
     return error
 }
 
-export const serverErrorHandler = (err: APIError, req: Request, res: Response, next: NextFunction) => {
-    const statusCode = err.statusCode || 500
-    const message = err.message || "XoX: Internal Server Error"
+export const serverErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "XoX: Internal Server Error";
 
-    return res.status(statusCode).json({err: "＞﹏＜: Error Occured", statusCode, message})
-}
+    res.status(statusCode).json({
+        err: "＞﹏＜: Error Occured",
+        statusCode,
+        message
+    });
+};

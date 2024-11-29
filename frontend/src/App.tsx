@@ -12,13 +12,13 @@ export default function App() {
       <Header/>
       <Router>
         <Routes>
-          <Route path="/" element={<DoubleQuotes pagetorender="Trending"/>}/>
-          <Route path="/~/trending" element={<DoubleQuotes pagetorender="Trending"/>}/>
-          <Route path="/~/home" element={<DoubleQuotes pagetorender="Home"/>}/>
-          <Route path="/~/explore" element={<DoubleQuotes pagetorender="Explore"/>}/>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/verify-email" element={<VerifyEmail/>} />
-          <Route path="/pending-verification" element={<Verification/>}/>
+          <Route index element={<DoubleQuotes pagetorender="Trending"/>}/>
+          <Route path="~/trending" element={<DoubleQuotes pagetorender="Trending"/>}/>
+          <Route path="~/home" element={<DoubleQuotes pagetorender="Home"/>}/>
+          <Route path="~/explore" element={<DoubleQuotes pagetorender="Explore"/>}/>
+          <Route path="login" element={<Login/>}/>
+          <Route path="verify-email" element={<VerifyEmail/>} />
+          <Route path="pending-verification" element={<Verification/>}/>
           <Route path="*" element={<PageNotFound/>}/>
         </Routes>
       </Router>

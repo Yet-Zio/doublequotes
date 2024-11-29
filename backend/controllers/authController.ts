@@ -21,15 +21,15 @@ export const checkemail = async(req: Request, res: Response, next: NextFunction)
             if(isEmail(email)){
                 const user = await User.findOne({email: email})
                 if(user){
-                    return res.status(409).json({res: "EMAIL_ALREADY_EXISTS", success: false})
+                    res.status(409).json({res: "EMAIL_ALREADY_EXISTS", success: false})
                 }
                 else{
                     if(isFakeEmail(email)){
-                        return res.status(409).json({res: "TEMP_MAIL_DETECTED", success: false})
+                        res.status(409).json({res: "TEMP_MAIL_DETECTED", success: false})
                     }
                     else{
                         if (req.route.path === "/checkemail") {
-                            return res.status(200).json({res: "NEW_VALID_EMAIL", success: true})
+                            res.status(200).json({res: "NEW_VALID_EMAIL", success: true})
                         }
                         else{
                             next()
@@ -38,11 +38,11 @@ export const checkemail = async(req: Request, res: Response, next: NextFunction)
                 }
             }
             else{
-                return res.status(409).json({res: "NOT_AN_EMAIL", success: false})
+                res.status(409).json({res: "NOT_AN_EMAIL", success: false})
             }
         }
         else{
-            return next(errorHandler(400, "Invalid credential format"))
+            next(errorHandler(400, "Invalid credential format"))
         }
     }
     catch(err){
@@ -59,11 +59,11 @@ export const checkuname = async(req: Request, res: Response, next: NextFunction)
                 const user = await User.findOne({uname: uname})
 
                 if(user){
-                    return res.status(409).json({res: "UNAME_ALREADY_EXISTS", success: false})
+                    res.status(409).json({res: "UNAME_ALREADY_EXISTS", success: false})
                 }
                 else{
                     if (req.route.path === "/checkuname") {
-                        return res.status(200).json({res: "NEW_VALID_USERNAME", success: true})
+                        res.status(200).json({res: "NEW_VALID_USERNAME", success: true})
                     }
                     else{
                         next()
@@ -71,11 +71,11 @@ export const checkuname = async(req: Request, res: Response, next: NextFunction)
                 }
             }
             else{
-                return res.status(409).json({res: "INVALID_USERNAME_FORMAT", success: false})
+                res.status(409).json({res: "INVALID_USERNAME_FORMAT", success: false})
             }
         }
         else{
-            return next(errorHandler(400, "Invalid credential format"))
+            next(errorHandler(400, "Invalid credential format"))
         }
     }
     catch(err){
@@ -99,22 +99,22 @@ export const checkpassword = async (req: Request, res: Response, next: NextFunct
                     return chars.split('').some(char => {return password.includes(char)})
                 })){
                     if(req.route.path === "/checkpassword"){
-                        return res.status(200).json({res: "VALID_PASSWORD", success: true})
+                        res.status(200).json({res: "VALID_PASSWORD", success: true})
                     }
                     else{
                         next()
                     }
                 }
                 else{
-                    return res.status(409).json({res: "PW_CRITERIA_FAILURE", success: false})
+                    res.status(409).json({res: "PW_CRITERIA_FAILURE", success: false})
                 }
             }
             else{
-                return res.status(409).json({res: "PW_LENGTH_INVALID", success: false})
+                res.status(409).json({res: "PW_LENGTH_INVALID", success: false})
             }
         }
         else{
-            return next(errorHandler(400, "Invalid credential format"))
+            next(errorHandler(400, "Invalid credential format"))
         }
     }
     catch(err){
@@ -235,7 +235,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
                 res.cookie("accessToken", token, {httpOnly: true, expires: expiryDate})
                 res.cookie("refreshToken", refreshToken, {httpOnly: true, expires: refresh_expiryDate})
                 
-                return res.status(200).json({success, ...userData})
+                res.status(200).json({success, ...userData})
             }
             else{
                 return next(errorHandler(500, "Something went wrong"))
@@ -255,7 +255,7 @@ export const testauthController = async (req: AuthenticatedRequest, res: Respons
         const user = req.user
 
         if(user){
-            return res.json({success: true, user: user, userID: user.id})
+            res.json({success: true, user: user, userID: user.id})
         }
     }
     catch(err){
@@ -267,7 +267,7 @@ export const logout = async (req: Request, res: Response, next: NextFunction) =>
     try{
         ["accessToken", "refreshToken"].forEach(cookie => res.clearCookie(cookie))
 
-        return res.status(200).json({message: "LOGGED_OUT_SUCCESSFULLY"})
+        res.status(200).json({message: "LOGGED_OUT_SUCCESSFULLY"})
     }
     catch(err){
         return next(errorHandler)

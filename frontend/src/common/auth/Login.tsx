@@ -4,6 +4,7 @@ import { CheckFat, Eye, EyeSlash, WarningCircle } from "@phosphor-icons/react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Tooltip } from 'react-tooltip'
+import FingerprintJS from "@fingerprintjs/fingerprintjs"
 import { APIURL, NOT_AN_EMAIL, EMAIL_ALREADY_EXISTS, TEMP_MAIL_DETECTED, INVALID_USERNAME_FORMAT, UNAME_ALREADY_EXISTS,
   PW_CRITERIA_FAILURE, PW_LENGTH_INVALID,
   NotAnEmailText,
@@ -24,6 +25,7 @@ import { login } from "../../redux/user/userSlice";
 
 export default function Login() {
 
+  const [visitorId, setVisitorID] = useState("")
   const [isLogin, setIsLogin] = useState(true)
   const [passHidden, setPassHidden] = useState(true)
   const [passFocused, setPassFocused] = useState(false)
@@ -119,6 +121,12 @@ export default function Login() {
   }
 
   useEffect(() => {
+    FingerprintJS.load().then(fp => {
+      fp.get().then(result => {
+        setVisitorID(result.visitorId)
+      })
+    })
+
     document.body.style.overflow = 'hidden';
 
     initGoogleSignIn()
@@ -247,7 +255,8 @@ export default function Login() {
       })
         await axios.post(`${API}/login`, {
             identifier: loginDetails.id,
-            password: loginDetails.password
+            password: loginDetails.password,
+            fingerprint: visitorId
         }, {
             headers: {
                 'Content-Type': 'application/json'
@@ -278,10 +287,12 @@ export default function Login() {
             ...signupProcess,
             start: true
         })
+
         await axios.post(`${API}/signup`, {
             uname: signupDetails.uname,
             email: signupDetails.email,
-            password: signupDetails.password
+            password: signupDetails.password,
+            fingerprint: visitorId
         }, {
             headers: {
                 'Content-Type': 'application/json'
